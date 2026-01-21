@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestión de Casos</title>
+</head>
+<body>
+  <header>
+    <h1>Gestión de Casos</h1>
+  </header>
+
+  <main class="caja-caso">
+    <section class="caja-formulario">
+      <form id="form-caso">
+        
+        <!-- Documento del estudiante -->
+        <div class="caja-input">
+          <label for="documento">Documento del estudiante:</label>
+          <input type="text" id="documento" name="documento" maxlength="25" required>
+          <button type="button" id="buscar-estudiante">Buscar</button>
+        </div>
+        
+        <!-- Tipo de caso -->
+        <div class="caja-input">
+          <label for="tipo">Tipo de caso:</label>
+          <select id="tipo" name="tipo" required>
+            <option value="academico">Académico</option>
+            <option value="personal">Personal</option>
+            <option value="familiar">Familiar</option>
+            <option value="disciplinario">Disciplinario</option>
+          </select>
+        </div>
+        
+        <!-- Descripción -->
+        <div class="caja-input">
+          <label for="descripcion">Descripción:</label>
+          <textarea id="descripcion" name="descripcion" required></textarea>
+        </div>
+        
+        <!-- Cargo del responsable -->
+        <div class="caja-input">
+          <label for="cargo">Cargo del responsable:</label>
+          <select id="cargo" name="cargo" required>
+            <option value="docente">Docente</option>
+            <option value="director_grupo">Director de grupo</option>
+            <option value="coordinacion">Coordinación</option>
+            <option value="psicologo">Psicólogo</option>
+            <option value="medico">Médico</option>
+            <option value="rector">Rector</option>
+          </select>
+        </div>
+        
+        <!-- Documento del responsable -->
+        <div class="caja-input">
+          <label for="prof_responsable">Documento del responsable:</label>
+          <input type="text" id="prof_responsable" name="prof_responsable" maxlength="25" required>
+        </div>
+        
+        <!-- Botón de guardar -->
+        <div class="caja-boton">
+          <button type="submit">Guardar Caso</button>
+        </div>
+        
+      </form>
+    </section>
+  </main>
+</body>
+</html>
