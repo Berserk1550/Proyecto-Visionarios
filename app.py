@@ -1,14 +1,13 @@
-from flask import Flask
-from conexion import conexion, cursor
+from flask import Flask, render_template, redirect, session
+from conexion import *
+from routes import login
 
-# Instancia principal de Flask
-app = Flask(__name__)
-app.secret_key = "super_segura"
+programa = Flask(__name__)
+programa.secret_key = "super_segura"
 
-# Ruta inicial (home)
-@app.route("/")
-def index():
-    return "Sistema Visionarios activo"
+@programa.route("/")
+def raiz():
+    return render_template("inicio.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    programa.run(debug=True, port=5080)
