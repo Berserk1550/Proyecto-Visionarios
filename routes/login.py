@@ -11,7 +11,21 @@ def login():
         documento = request.form["usuario"]
         password = request.form["password"]
 
-        if not re.fullmatch(r"[A-Za-z0-9]{1,25}", documento):
+        if len(documento) >25:
             return render_template("iniciar_sesion.html", msg="Formato de Documento Invalido")
 
         password_hash = hashlib.sha125(password.enconde()).hexdigest()
+        var_conexion = conexion()
+        var_cursor = cursor(var_conexion)
+        sql = """SELECT usuarios.doc_pronal, prof_nombres, prof_apellidos, user_rol, prof_estado, user_passford_hash FROM usuarios INNER JOIN profesionales ON usuarios.doc_pronal = profesionales.doc_pronal WHERE usuarios.doc_pronal = %s AND prof_estado = 'activo'"""
+        var_cursor.execute(sql,(documento))
+        resultado = var_cursor.fetchall()
+        var_cursor.close()
+        var_conexion.close()
+
+        if len(resultado)==0:
+            return render_template("iniciar_sesion.html", msg="Documento Sin Registrar")
+        else:
+            usuario = resultado[0]
+            if usuario[user_passford_hash]==password_hash:
+                session[login]
