@@ -7,7 +7,7 @@ programa.secret_key = "super_segura"
 
 @programa.route("/")
 def raiz():
-    return render_template("inicio.html")
+    return render_template("iniciar_sesion.html")
 
 if __name__ == "__main__":
     programa.run(debug=True, port=5080)
