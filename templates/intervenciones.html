@@ -2,26 +2,30 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestión de Casos</title>
+  
+  <link rel="stylesheet" href="../static/intervencion.css">
+  
 </head>
-<body>
-  <header>
-    <h1>Gestión de Casos</h1>
-  </header>
 
-  <main class="caja-caso">
-    <section class="caja-formulario">
-      <form id="form-caso">
+<body>
+
+  <main id="padre_ppal">
+
+    <section class="caja_formulario">
+      
+      <form id="form_acceso">
         
         <!-- Documento del estudiante -->
-        <div class="caja-input">
+        <div class="caja_input">
           <label for="documento">Documento del estudiante:</label>
           <input type="text" id="documento" name="documento" maxlength="25" required>
           <button type="button" id="buscar-estudiante">Buscar</button>
         </div>
         
         <!-- Tipo de caso -->
-        <div class="caja-input">
+        <div class="caja_input">
           <label for="tipo">Tipo de caso:</label>
           <select id="tipo" name="tipo" required>
             <option value="academico">Académico</option>
@@ -32,13 +36,13 @@
         </div>
         
         <!-- Descripción -->
-        <div class="caja-input">
+        <div class="caja_input">
           <label for="descripcion">Descripción:</label>
           <textarea id="descripcion" name="descripcion" required></textarea>
         </div>
         
         <!-- Cargo del responsable -->
-        <div class="caja-input">
+        <div class="caja_input">
           <label for="cargo">Cargo del responsable:</label>
           <select id="cargo" name="cargo" required>
             <option value="docente">Docente</option>
@@ -51,13 +55,13 @@
         </div>
         
         <!-- Documento del responsable -->
-        <div class="caja-input">
+        <div class="caja_input">
           <label for="prof_responsable">Documento del responsable:</label>
           <input type="text" id="prof_responsable" name="prof_responsable" maxlength="25" required>
         </div>
         
         <!-- Botón de guardar -->
-        <div class="caja-boton">
+        <div class="caja_boton">
           <button type="submit">Guardar Caso</button>
         </div>
         
