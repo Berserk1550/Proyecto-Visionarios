@@ -2,28 +2,44 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestión de Casos</title>
+  
+  <link rel="stylesheet" href="../static/intervencion.css">
+  
 </head>
-<body>
-  <header>
-    <h1>Gestión de Casos</h1>
-  </header>
 
+<<<<<<< HEAD:templates/casos.html
   <main class="caja-caso">
     <section class="caja-formulario">
       <form id="form-caso" action="/casos" method="post">
+=======
+<body>
+
+  <main id="padre_ppal">
+
+    <section class="caja_formulario">
+      
+      <form id="form_acceso">
+>>>>>>> 1e1bd64734ad00644bb74a02e8238d6ec427fbf8:templates/intervenciones.html
         
         <!-- Documento del estudiante -->
-        <div class="caja-input">
+        <div class="caja_input">
           <label for="documento">Documento del estudiante:</label>
           <input type="text" id="documento" name="documento" maxlength="25" required>
           <button type="button" id="buscar-estudiante">Buscar</button>
         </div>
         
         <!-- Tipo de caso -->
+<<<<<<< HEAD:templates/casos.html
         <div class="caja-input">
           <label for="caso_tipo">Tipo de caso:</label>
           <select id="caso_tipo" name="caso_tipo" required>
+=======
+        <div class="caja_input">
+          <label for="tipo">Tipo de caso:</label>
+          <select id="tipo" name="tipo" required>
+>>>>>>> 1e1bd64734ad00644bb74a02e8238d6ec427fbf8:templates/intervenciones.html
             <option value="academico">Académico</option>
             <option value="personal">Personal</option>
             <option value="familiar">Familiar</option>
@@ -32,6 +48,7 @@
         </div>
         
         <!-- Descripción -->
+<<<<<<< HEAD:templates/casos.html
         <div class="caja-input">
           <label for="caso_descripcion">Descripción:</label>
           <textarea id="caso_descripcion" name="caso_descripcion" required></textarea>
@@ -41,10 +58,29 @@
         <div class="caja-input">
           <label for="caso_fecha_apertura">Fecha de apertura:</label>
           <input type="date" id="caso_fecha_apertura" name="caso_fecha_apertura" required>
+=======
+        <div class="caja_input">
+          <label for="descripcion">Descripción:</label>
+          <textarea id="descripcion" name="descripcion" required></textarea>
+        </div>
+        
+        <!-- Cargo del responsable -->
+        <div class="caja_input">
+          <label for="cargo">Cargo del responsable:</label>
+          <select id="cargo" name="cargo" required>
+            <option value="docente">Docente</option>
+            <option value="director_grupo">Director de grupo</option>
+            <option value="coordinacion">Coordinación</option>
+            <option value="psicologo">Psicólogo</option>
+            <option value="medico">Médico</option>
+            <option value="rector">Rector</option>
+          </select>
+>>>>>>> 1e1bd64734ad00644bb74a02e8238d6ec427fbf8:templates/intervenciones.html
         </div>
 
         
         <!-- Documento del responsable -->
+<<<<<<< HEAD:templates/casos.html
         <div class="caja-input">
           <label for="doc_pronal">Documento del profesional responsable:</label>
           <input type="text" id="doc_pronal" name="doc_pronal" maxlength="25" required>
@@ -53,6 +89,16 @@
         <!-- Botón de guardar -->
         <div class="caja-boton">
           <button type="submit" id="guardar-caso">Guardar Caso</button>
+=======
+        <div class="caja_input">
+          <label for="prof_responsable">Documento del responsable:</label>
+          <input type="text" id="prof_responsable" name="prof_responsable" maxlength="25" required>
+        </div>
+        
+        <!-- Botón de guardar -->
+        <div class="caja_boton">
+          <button type="submit">Guardar Caso</button>
+>>>>>>> 1e1bd64734ad00644bb74a02e8238d6ec427fbf8:templates/intervenciones.html
         </div>
         
       </form>
