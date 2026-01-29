@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <form action="/registrar_profesional" method="post">
+        <input type="text" name="cedula" placeholder="Cédula" required>
+        <input type="text" name="nombres" placeholder="Nombres" required>
+        <input type="text" name="apellidos" placeholder="Apellidos" required>
+        <input type="text" name="telefono" placeholder="Teléfono">
+        <input type="email" name="correo" placeholder="Correo">
+        <select name="rol" required>
+            <option value="coordinacion">Coordinación</option>
+            <option value="docente">Docente</option>
+            <option value="administrador">Administrador</option>
+        </select>
+        <input type="password" name="contrasena" placeholder="Contraseña" required>
+        <button type="submit">Registrar</button>
+    </form>
+
+
+</body>
+</html>

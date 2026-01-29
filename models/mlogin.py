@@ -3,7 +3,9 @@ class MLogin:
     def loguear(self,documento):
         var_conexion = conexion()
         var_cursor = cursor(var_conexion)
-        sql = """SELECT usuarios.doc_pronal, profesionales.prof_nombres, profesionales.prof_apellidos, usuarios.user_rol, usuarios.user_password_hash FROM usuarios INNER JOIN profesionales ON usuarios.doc_pronal = profesionales.doc_pronal WHERE usuarios.doc_pronal=%s AND profesionales.prof_estado = 'activo'"""
+        sql= """SELECT doc_pronal, prof_nombres, prof_apellidos, prof_estado, user_rol, user_password_hash
+                 FROM usuarios
+                 WHERE doc_pronal=%s AND prof_estado = 'activo'"""
         var_cursor.execute(sql,(documento,))
         resultado = var_cursor.fetchall()
 

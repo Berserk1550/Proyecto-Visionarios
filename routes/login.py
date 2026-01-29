@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, session
-from app import programa
+from programa import programa
 import hashlib
 from models.mlogin import MLogin
 from conexion import conexion, cursor
@@ -18,7 +18,7 @@ def login():
             return render_template("iniciar_sesion.html", msg="El documento ingresado se encuentra sin registrar.")
         else:
             usuario = resultado[0]
-            if usuario[user_password_hash] == password_hash:
+            if usuario["user_password_hash"] == password_hash:
                 session["login"]= True
                 session["doc_pronal"]= usuario["doc_pronal"]
                 session["nombres"]= usuario["prof_nombres"]
@@ -27,7 +27,7 @@ def login():
                 session["estado"]= usuario["prof_estado"]
 
                 if usuario["user_rol"] == "administrador":
-                    return redirect("/admin")
+                    return render_template("casos.html")
                 else:
                     return redirect("/panel")
             else:

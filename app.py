@@ -1,9 +1,9 @@
+from programa import programa
 from flask import Flask, render_template, redirect, session
 from conexion import *
-from routes import login
+from routes import login, casos
 
-programa = Flask(__name__)
-programa.secret_key = "super_segura"
+
 
 @programa.route("/")
 def raiz():
