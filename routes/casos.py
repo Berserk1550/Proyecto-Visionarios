@@ -37,6 +37,6 @@ def ver_caso(num_caso):
 def r_cerrar_caso(num_caso):
     if session["rol"] != "administrador":
         return render_template("casos.html", msg ="No tienes permisos para cerrar casos.")
-    fecha_cierre = request.form["caso_fecha_cierre"]
+    fecha_cierre = datetime.now().strftime("%Y-%m-$d")
     cerrar_caso(num_caso, fecha_cierre)
     return redirect(url_for("listar_casos"))
