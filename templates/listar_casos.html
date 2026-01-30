@@ -64,7 +64,6 @@
                     <!-- Botón solo para admin -->
                     {% if session['rol'] == 'administrador' %}
                     <form action="{{ url_for('r_cerrar_caso', num_caso=caso.num_caso) }}" method="POST" style="display:inline;">
-                        <input type="date" name="caso_fecha_cierre" required>
                         <button type="submit">Cerrar caso</button>
                     </form>
                     {% endif %}
