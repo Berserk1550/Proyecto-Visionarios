@@ -3,87 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="../static/registrar_profesional.css">
-    <title>Document</title>
+    <title>Registrar Profesional</title>
 </head>
-
-
 <body>
-
-
     <main id="padre_ppal">
         <form id="form_acceso" action="/registrar_profesional" method="post">
             <div id="cont_contenido">
 
-                <div id="cont_input">
+                <div class="caja_input">
                     <input type="text" 
-                    name="cedula" 
-                    placeholder="Cédula" 
-                    minlength="6"
-                    maxlength="10"
-                    pattern="[0-9]{6,10}"
-                    required>
-
+                           name="cedula" 
+                           placeholder="Cédula" 
+                           minlength="6"
+                           maxlength="10"
+                           pattern="[0-9]{6,10}"
+                           required>
                 </div>
 
-                <div id="cont_input">   
+                <div class="caja_input">   
                     <input type="text" 
-                    name="nombres" 
-                    placeholder="Nombres"
-                    minlength="1"
-                    maxlength="50"
-                    pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s\-']{1,50}" 
-                    required>
+                           name="nombres" 
+                           placeholder="Nombres"
+                           minlength="1"
+                           maxlength="50"
+                           pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s\-']{1,50}" 
+                           required>
                 </div> 
 
-                <div id="cont_input">
+                <div class="caja_input">
                     <input type="text" 
-                    name="apellidos" 
-                    placeholder="Apellidos" 
-                    minlength="1"
-                    maxlength="50"
-                    pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s\-']{1,50}" 
-                    required>
+                           name="apellidos" 
+                           placeholder="Apellidos" 
+                           minlength="1"
+                           maxlength="50"
+                           pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s\-']{1,50}" 
+                           required>
                 </div>
 
-                <div id="cont_input">
+                <div class="caja_input">
                     <input type="text" 
-                    name="telefono"
-                    minlength="10"
-                    maxlength="10"
-                    pattern="[0-9]{10}" 
-                    placeholder="Teléfono">
+                           name="telefono"
+                           minlength="10"
+                           maxlength="10"
+                           pattern="[0-9]{10}" 
+                           placeholder="Teléfono">
                 </div>
 
-                <div id="cont_input">   
+                <div class="caja_input">   
                     <input type="email" 
-                    name="correo" 
-                    minlength="5"
-                    maxlength="76"
-                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
-                    placeholder="Correo" 
-                    required>
+                           name="correo" 
+                           minlength="5"
+                           maxlength="76"
+                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
+                           placeholder="Correo" 
+                           required>
                 </div> 
+
+                <div class="caja_input">
+                    <select name="rol" required>
+                        <option value="coordinacion">Coordinación</option>
+                        <option value="docente">Docente</option>
+                        <option value="administrador">Administrador</option>
+                    </select>
+                </div>
+
+                <div class="caja_input">
+                    <input type="password" 
+                           name="contrasena" 
+                           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$" 
+                           title="Debe tener entre 8 y 20 caracteres, incluir mayúsculas, minúsculas, números y un símbolo especial" 
+                           placeholder="Contraseña"
+                           required>    
+                </div>
+
+                <div class="caja_boton">
+                    <button type="submit">Registrar</button>
+                </div>
 
             </div>
-            <select name="rol" required>
-                <option value="coordinacion">Coordinación</option>
-                <option value="docente">Docente</option>
-                <option value="administrador">Administrador</option>
-            </select>
-
-                <div id="cont_input">
-                    <input type="password" 
-                    name="contrasena" 
-                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$" 
-                    title="Debe tener entre 8 y 20 caracteres, incluir mayúsculas, minúsculas, números y un símbolo especial" 
-                    placeholder="Contrasena"
-                    required>    
-                </div>
-            <button type="submit">Registrar</button>
         </form>
     </main>
-
 </body>
 </html>
