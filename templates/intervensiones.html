@@ -1,84 +1,112 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Gestión de Intervenciones</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../static/intervencion.css">
+    <meta charset="UTF-8">
+    <title>Detalle del Caso</title>
+    <style>
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .acciones {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background: #f2f2f2;
+        }
+        button {
+            padding: 8px 12px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Gestión de Intervenciones</h1>
-  </header>
+    <div class="container">
+        <h1>Detalle del Caso #{{ caso.num_caso }}</h1>
 
-  <!-- Contenedor principal con el id correcto -->
-  <main id="padre_ppal">
-    <section>
-      <!-- Formulario con el id correcto -->
-      <form id="form_acceso" action="/intervenciones" method="post">
+        <!-- Información del caso -->
+        <p><strong>Documento estudiante:</strong> {{ caso.documento }}</p>
+        <p><strong>Tipo de caso:</strong> {{ caso.caso_tipo }}</p>
+        <p><strong>Descripción:</strong> {{ caso.caso_descripcion }}</p>
+        <p><strong>Fecha apertura:</strong> {{ caso.caso_fecha_apertura }}</p>
+        <p><strong>Fecha cierre:</strong> {{ caso.caso_fecha_cierre or '---' }}</p>
+        <p><strong>Profesional responsable:</strong> {{ caso.doc_pronal }}</p>
+        <p><strong>Estado:</strong> {{ caso.caso_estado }}</p>
 
-        <!-- Número de caso -->
-        <div class="caja_input">
-          <label for="num_caso">Número de caso:</label>
-          
-          <input type="number"
-          id="num_caso"
-          name="num_caso"
-          minlength="1"
-          maxlength="1"
-          min="1"
-          pattern="[0-9]{1}"
-          required>
+        <!-- Intervenciones -->
+        <h2>Intervenciones realizadas</h2>
+        {% if intervenciones %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Profesional</th>
+                    <th>Descripción</th>
+                    <th>Compromiso</th>
+                    <th>Fecha Compromiso</th>
+                    <th>Estado Compromiso</th>
+                    <th>Estado Intervención</th>
+                    <th>Fecha Registro</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for intervencion in intervenciones %}
+                <tr>
+                    <td>{{ intervencion.id_intervencion }}</td>
+                    <td>{{ intervencion.fecha }}</td>
+                    <td>{{ intervencion.doc_pronal }}</td>
+                    <td>{{ intervencion.descripcion }}</td>
+                    <td>{{ intervencion.int_compromiso or '---' }}</td>
+                    <td>{{ intervencion.int_fecha_compromiso or '---' }}</td>
+                    <td>{{ intervencion.int_estado_compromiso }}</td>
+                    <td>{{ intervencion.int_estado }}</td>
+                    <td>{{ intervencion.fecha_registro }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No hay intervenciones registradas para este caso.</p>
+        {% endif %}
 
-          <button type="button" id="buscar-caso">Buscar Caso</button>
+        <!-- Acciones -->
+        <div class="acciones">
+            <a href="{{ url_for('nueva_intervencion_form', num_caso=caso.num_caso) }}">
+                <button>Añadir intervención</button>
+            </a>
+
+            {% if session['rol'] == 'administrador' and caso.caso_estado == 'abierto' %}
+            <form action="{{ url_for('r_cerrar_caso', num_caso=caso.num_caso) }}" method="POST" style="display:inline;">
+                <button type="submit">Cerrar caso</button>
+            </form>
+            {% endif %}
         </div>
-
-        <!-- Descripción de la intervención -->
-        <div class="caja_input">
-          <label for="int_descripcion">Descripción de la intervención:</label>
-          <textarea id="int_descripcion" name="int_descripcion" required></textarea>
-        </div>
-
-        <!-- Fecha de intervención -->
-        <div class="caja_input">
-          <label for="int_fecha">Fecha de intervención:</label>
-          <input type="date" id="int_fecha" name="int_fecha" required>
-        </div>
-
-        <!-- Documento del profesional -->
-        <div class="caja_input">
-          <label for="doc_pronal">Documento del profesional responsable:</label>
-          <input type="text" id="doc_pronal" name="doc_pronal" maxlength="25" required>
-        </div>
-
-        <!-- Compromiso -->
-        <div class="caja_input">
-          <label for="int_compromiso">Compromiso:</label>
-          <textarea id="int_compromiso" name="int_compromiso"></textarea>
-        </div>
-
-        <!-- Fecha de compromiso -->
-        <div class="caja_input">
-          <label for="int_fecha_compromiso">Fecha de compromiso:</label>
-          <input type="date" id="int_fecha_compromiso" name="int_fecha_compromiso">
-        </div>
-
-        <!-- Estado del compromiso -->
-        <div class="caja_input">
-          <label for="int_estado_compromiso">Estado del compromiso:</label>
-          <select id="int_estado_compromiso" name="int_estado_compromiso">
-            <option value="pendiente" selected>Pendiente</option>
-            <option value="cumplido">Cumplido</option>
-            <option value="vencido">Vencido</option>
-          </select>
-        </div>
-
-        <!-- Botón de guardar -->
-        <div class="caja_boton">
-          <button type="submit" id="guardar-intervencion">Guardar Intervención</button>
-        </div>
-
-      </form>
-    </section>
-  </main>
+    </div>
 </body>
+</html>

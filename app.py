@@ -1,7 +1,7 @@
 from programa import programa
 from flask import Flask, render_template, redirect, session
 from conexion import *
-from routes import login, casos
+from routes import login, casos, intervenciones, dashboard
 
 
 

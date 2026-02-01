@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, session
+from flask import render_template, request, redirect, session, url_for
 from programa import programa
 import hashlib
 from models.mlogin import MLogin
@@ -14,21 +14,21 @@ def login():
         usuario_model = MLogin()
         resultado = usuario_model.loguear(documento)
 
-        if len(resultado)==0:
+        if len(resultado) == 0:
             return render_template("iniciar_sesion.html", msg="El documento ingresado se encuentra sin registrar.")
         else:
             usuario = resultado[0]
             if usuario["user_password_hash"] == password_hash:
-                session["login"]= True
-                session["doc_pronal"]= usuario["doc_pronal"]
-                session["nombres"]= usuario["prof_nombres"]
-                session["apellidos"]= usuario["prof_apellidos"]
-                session["rol"]= usuario["user_rol"]
-                session["estado"]= usuario["prof_estado"]
+                session["login"] = True
+                session["doc_pronal"] = usuario["doc_pronal"]
+                session["nombres"] = usuario["prof_nombres"]
+                session["apellidos"] = usuario["prof_apellidos"]
+                session["rol"] = usuario["user_rol"]
+                session["estado"] = usuario["prof_estado"]
 
-                if usuario["user_rol"] == "administrador":
-                    return render_template("casos.html")
-                else:
-                    return redirect("/panel")
+                # 🔹 Redirigir al dashboard sin importar el rol
+                return redirect(url_for("dashboard"))
+
             else:
                 return render_template("iniciar_sesion.html", msg="Contraseña incorrecta.")
+    return render_template("iniciar_sesion.html")

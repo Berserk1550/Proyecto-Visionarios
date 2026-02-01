@@ -1,6 +1,7 @@
 from flask import request, render_template, redirect, url_for, session
 from programa import programa
-from models.casos import nuevo_caso, obtener_caso, caso_id, cerrar_caso
+from datetime import datetime
+from models.casos import nuevo_caso, obtener_caso, caso_id, cerrar_caso, existe_estudiante
 
 
 @programa.route("/casos/nuevo", methods=["GET"])
@@ -12,11 +13,14 @@ def guardar_caso():
     documento = request.form["documento"]
     caso_tipo = request.form["caso_tipo"]
     caso_descripcion = request.form["caso_descripcion"]
-    caso_fecha_apertura = request.form["caso_fecha_apertura"]
+    caso_fecha_apertura = datetime.now().strftime("%Y-%m-%d")
     doc_pronal = request.form["doc_pronal"]
 
+    if not existe_estudiante(documento):
+        return render_template("casos.html", msg="Verifica que el documento de identidad del estudiante sea el correcto. Inténtalo de nuevo.", document=documento, caso_tipo=caso_tipo, caso_descripcion=caso_descripcion)
+
     nuevo_caso(documento, caso_tipo, caso_descripcion, caso_fecha_apertura, doc_pronal)
-    return redirect(url_for("lista_casos"))
+    return redirect(url_for("mostrar_casos", msg="Caso registrado con éxito."))
 
 @programa.route("/casos", methods=["GET"])
 def lista_casos():
@@ -28,12 +32,21 @@ def lista_casos():
     
     return render_template("listar_casos.html", casos=casos)
 
-@programa.route("/casos/<int:num_caso>/cerrar", methods=["POST"])
+@programa.route("/casos/<int:num_caso>/cerrar", methods=["GET"])
 def ver_caso(num_caso):
-    caso=caso_id(num_caso)
-    return render_template("detalle_caso.html", caso=caso)
+    conexion = mysql.connector.connect(host="localhost", user="root", password="", database="visionarios")
+    cursor = conexion.cursor(disctionary=True)
+    cursor.execute("SELECT * FROM casos WHERE num_caso = %s", (num_caso))
+    caso=cursor.fetchone()
 
-@programa.route("/casos", methods=["POST"])
+    cursor.execute("SELECT * FROM intervenciones WHERE num_caso = %s ORDER BY fecha DESC", (num_caso) )
+    intervenciones=cursor.fetchall()
+
+    cursor.close()
+    conexion.close()
+    return render_template("detalle_caso.html", caso=caso, intervenciones=intervenciones)
+
+@programa.route("/casos/<int:num_caso>/cerrar", methods=["POST"])
 def r_cerrar_caso(num_caso):
     if session["rol"] != "administrador":
         return render_template("casos.html", msg ="No tienes permisos para cerrar casos.")
