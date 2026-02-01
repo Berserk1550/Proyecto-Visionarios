@@ -2,11 +2,36 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Casos</title>
+<<<<<<< HEAD
+=======
+
+    <link rel="stylesheet" href="../static/listar_casos.css">  
+    <!-- <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background: #f2f2f2;
+        }
+        .acciones {
+            display: flex;
+            gap: 10px;
+        }
+    </style> -->
+>>>>>>> 7e938310d30da721a476c8a7423888f9a9e23285
 </head>
 <body>
-    <h1>Listado de Casos Estudiantiles</h1>
 
+<<<<<<< HEAD
     <!-- Formulario de búsqueda por documento -->
     <form action="{{ url_for('lista_casos') }}" method="GET">
         <label for="documento">Documento del estudiante:</label>
@@ -41,6 +66,89 @@
                 <td>
                     <a href="{{ url_for('ver_caso', num_caso=caso.num_caso) }}">Ver detalle</a>
                     <a href="{{ url_for('nueva_intervencion_form', num_caso=caso.num_caso) }}">Añadir intervención</a>
+=======
+    <main id="padre_ppal">
+
+        <h1>Listado de Casos Estudiantiles</h1>
+
+        <!-- Formulario de búsqueda por documento -->
+        <form action="{{ url_for('lista_casos') }}" method="GET" id="buscar_estudiante">
+
+            <label for="documento">Buscar por documento del estudiante:</label>
+
+            <div id="caja_horizontal">
+
+                <input type="text" id="documento" name="documento" placeholder="Ingrese documento">
+
+                <button type="submit">Buscar</button>
+
+            </div>
+
+        </form>
+
+        <!-- Tabla de casos -->
+        <table>
+
+            <thead>
+
+                <tr id="titulos">
+
+                    <th># Caso</th>
+                    <th>Documento Estudiante</th>
+                    <th>Tipo</th>
+                    <th>Descripción</th>
+                    <th>Fecha Apertura</th>
+                    <th>Fecha Cierre</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for caso in casos %}
+                <tr id="informacion">
+
+                    <td><p>Caso #</p>{{ caso.num_caso }}</td>
+                    <td><p>Documento:</p>{{ caso.documento }}</td>
+                    <td><p>Tipo:</p>{{ caso.caso_tipo }}</td>
+                    <td><p>Descripción:</p>{{ caso.caso_descripcion }}</td>
+                    <td><p>Fecha Apertura:</p>{{ caso.caso_fecha_apertura }}</td>
+                    <td><p>Fecha Cierre:</p>{{ caso.caso_fecha_cierre or '---' }}</td>
+                    <td><p>Estado:</p>{{ caso.caso_estado }}</td>
+                    <td class="acciones">
+
+                        <!-- Botón visible para todos -->
+                        <a href="{{ url_for('ver_caso', num_caso=caso.num_caso) }}">Ver detalle</a>
+
+                        <!-- Botón solo para admin -->
+                        <form action="{{ url_for('r_cerrar_caso', num_caso=caso.num_caso) }}" method="POST" style="display:inline;">
+
+                            <input type="date" name="caso_fecha_cierre" id="caso_fecha_cierre" required>
+
+                            <button type="submit" id="btn_cerrar_caso">Cerrar caso</button>
+
+                        </form>
+
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </main>
+
+<<<<<<< HEAD
+=======
+                    <!-- Botón solo para admin -->
+>>>>>>> 7e938310d30da721a476c8a7423888f9a9e23285
                     {% if session['rol'] == 'administrador' %}
                     <form action="{{ url_for('r_cerrar_caso', num_caso=caso.num_caso) }}" method="POST">
                         <button type="submit">Cerrar caso</button>
@@ -51,5 +159,6 @@
             {% endfor %}
         </tbody>
     </table>
+>>>>>>> de79f5dd718fe27dabdba82f8b6c2d91e02a4dfe
 </body>
 </html>
