@@ -1,108 +1,73 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestión de Casos</title>
-  
-  <link rel="stylesheet" href="../static/intervencion.css">
-  
+    <meta charset="UTF-8">
+    <title>Abrir Caso Estudiantil</title>
+    <style>
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, select, textarea, button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            background: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .msg {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
 </head>
-
-<<<<<<< HEAD:templates/casos.html
-  <main class="caja-caso">
-    <section class="caja-formulario">
-      <form id="form-caso" action="/casos" method="post">
-=======
 <body>
+    <h1>Abrir Caso Estudiantil</h1>
 
-  <main id="padre_ppal">
+    <!-- Mensaje de error si ya existe un caso abierto -->
+    {% if msg %}
+    <p class="msg">{{ msg }}</p>
+    {% endif %}
 
-    <section class="caja_formulario">
-      
-      <form id="form_acceso">
->>>>>>> 1e1bd64734ad00644bb74a02e8238d6ec427fbf8:templates/intervenciones.html
-        
-        <!-- Documento del estudiante -->
-        <div class="caja_input">
-          <label for="documento">Documento del estudiante:</label>
-          <input type="text" id="documento" name="documento" maxlength="25" required>
-          <button type="button" id="buscar-estudiante">Buscar</button>
-        </div>
-        
-        <!-- Tipo de caso -->
-<<<<<<< HEAD:templates/casos.html
-        <div class="caja-input">
-          <label for="caso_tipo">Tipo de caso:</label>
-          <select id="caso_tipo" name="caso_tipo" required>
-=======
-        <div class="caja_input">
-          <label for="tipo">Tipo de caso:</label>
-          <select id="tipo" name="tipo" required>
->>>>>>> 1e1bd64734ad00644bb74a02e8238d6ec427fbf8:templates/intervenciones.html
+    <form action="{{ url_for('guardar_caso') }}" method="POST">
+        <label for="documento">Documento del estudiante:</label>
+        <input type="text" id="documento" name="documento" required>
+
+        <label for="caso_tipo">Tipo de caso:</label>
+        <select id="caso_tipo" name="caso_tipo" required>
             <option value="academico">Académico</option>
             <option value="personal">Personal</option>
             <option value="familiar">Familiar</option>
             <option value="disciplinario">Disciplinario</option>
-          </select>
-        </div>
-        
-        <!-- Descripción -->
-<<<<<<< HEAD:templates/casos.html
-        <div class="caja-input">
-          <label for="caso_descripcion">Descripción:</label>
-          <textarea id="caso_descripcion" name="caso_descripcion" required></textarea>
-        </div>
-        
-        <!-- Fecha de apertura -->
-        <div class="caja-input">
-          <label for="caso_fecha_apertura">Fecha de apertura:</label>
-          <input type="date" id="caso_fecha_apertura" name="caso_fecha_apertura" required>
-=======
-        <div class="caja_input">
-          <label for="descripcion">Descripción:</label>
-          <textarea id="descripcion" name="descripcion" required></textarea>
-        </div>
-        
-        <!-- Cargo del responsable -->
-        <div class="caja_input">
-          <label for="cargo">Cargo del responsable:</label>
-          <select id="cargo" name="cargo" required>
-            <option value="docente">Docente</option>
-            <option value="director_grupo">Director de grupo</option>
-            <option value="coordinacion">Coordinación</option>
-            <option value="psicologo">Psicólogo</option>
-            <option value="medico">Médico</option>
-            <option value="rector">Rector</option>
-          </select>
->>>>>>> 1e1bd64734ad00644bb74a02e8238d6ec427fbf8:templates/intervenciones.html
-        </div>
+        </select>
 
-        
-        <!-- Documento del responsable -->
-<<<<<<< HEAD:templates/casos.html
-        <div class="caja-input">
-          <label for="doc_pronal">Documento del profesional responsable:</label>
-          <input type="text" id="doc_pronal" name="doc_pronal" maxlength="25" required>
-        </div>
-        
-        <!-- Botón de guardar -->
-        <div class="caja-boton">
-          <button type="submit" id="guardar-caso">Guardar Caso</button>
-=======
-        <div class="caja_input">
-          <label for="prof_responsable">Documento del responsable:</label>
-          <input type="text" id="prof_responsable" name="prof_responsable" maxlength="25" required>
-        </div>
-        
-        <!-- Botón de guardar -->
-        <div class="caja_boton">
-          <button type="submit">Guardar Caso</button>
->>>>>>> 1e1bd64734ad00644bb74a02e8238d6ec427fbf8:templates/intervenciones.html
-        </div>
-        
-      </form>
-    </section>
-  </main>
+        <label for="caso_descripcion">Descripción del caso:</label>
+        <textarea id="caso_descripcion" name="caso_descripcion" rows="4" required></textarea>
+
+        <label for="caso_fecha_apertura">Fecha de apertura:</label>
+        <input type="date" id="caso_fecha_apertura" name="caso_fecha_apertura" required>
+
+        <!-- Profesional que abre el caso (se pasa oculto desde sesión) -->
+        <input type="hidden" name="doc_pronal" value="{{ session['doc_pronal'] }}">
+
+        <button type="submit">Registrar caso</button>
+    </form>
 </body>
 </html>

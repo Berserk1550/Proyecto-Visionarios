@@ -106,5 +106,19 @@
 
     </main>
 
+<<<<<<< HEAD
+=======
+                    <!-- Botón solo para admin -->
+                    {% if session['rol'] == 'administrador' %}
+                    <form action="{{ url_for('r_cerrar_caso', num_caso=caso.num_caso) }}" method="POST" style="display:inline;">
+                        <button type="submit">Cerrar caso</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+>>>>>>> de79f5dd718fe27dabdba82f8b6c2d91e02a4dfe
 </body>
 </html>
