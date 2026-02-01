@@ -61,6 +61,9 @@
                     <!-- Botón visible para todos -->
                     <a href="{{ url_for('ver_caso', num_caso=caso.num_caso) }}">Ver detalle</a>
 
+                    <!-- Botón añadir intervención -->
+                    <a href="{{ url_for('nueva_intervencion_form', num_caso=caso.num_caso) }}">Añadir intervención</a>
+
                     <!-- Botón solo para admin -->
                     {% if session['rol'] == 'administrador' %}
                     <form action="{{ url_for('r_cerrar_caso', num_caso=caso.num_caso) }}" method="POST" style="display:inline;">

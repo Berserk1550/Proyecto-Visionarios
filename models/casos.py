@@ -40,3 +40,12 @@ def cerrar_caso(num_caso, fecha_cierre):
     cursor.close()
     conexion.close()
 
+def existe_estudiante(documento):
+    conexion = mysql.connector.connect( host="localhost", user="root", password="", database="visionarios" )
+    cursor=conexion.cursor()
+    sql="SELECT COUNT(*)FROM estudiantes WHERE documento=%s"
+    cursor.execute(sql,(documento,))
+    resultado=cursor.fetchone()[0]
+    cursor.close()
+    conexion.close()
+    return resultado>0

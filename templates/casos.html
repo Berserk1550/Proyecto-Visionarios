@@ -36,33 +36,35 @@
             text-align: center;
             margin-top: 10px;
         }
+        .success {
+            color: green;
+            text-align: center;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <h1>Abrir Caso Estudiantil</h1>
 
-    <!-- Mensaje de error si ya existe un caso abierto -->
+    <!-- Mensaje dinámico -->
     {% if msg %}
-    <p class="msg">{{ msg }}</p>
+        <p class="{% if 'correctamente' in msg %}success{% else %}msg{% endif %}">{{ msg }}</p>
     {% endif %}
 
     <form action="{{ url_for('guardar_caso') }}" method="POST">
         <label for="documento">Documento del estudiante:</label>
-        <input type="text" id="documento" name="documento" required>
+        <input type="text" id="documento" name="documento" value="{{ documento or '' }}" required>
 
         <label for="caso_tipo">Tipo de caso:</label>
         <select id="caso_tipo" name="caso_tipo" required>
-            <option value="academico">Académico</option>
-            <option value="personal">Personal</option>
-            <option value="familiar">Familiar</option>
-            <option value="disciplinario">Disciplinario</option>
+            <option value="academico" {% if caso_tipo == 'academico' %}selected{% endif %}>Académico</option>
+            <option value="personal" {% if caso_tipo == 'personal' %}selected{% endif %}>Personal</option>
+            <option value="familiar" {% if caso_tipo == 'familiar' %}selected{% endif %}>Familiar</option>
+            <option value="disciplinario" {% if caso_tipo == 'disciplinario' %}selected{% endif %}>Disciplinario</option>
         </select>
 
         <label for="caso_descripcion">Descripción del caso:</label>
-        <textarea id="caso_descripcion" name="caso_descripcion" rows="4" required></textarea>
-
-        <label for="caso_fecha_apertura">Fecha de apertura:</label>
-        <input type="date" id="caso_fecha_apertura" name="caso_fecha_apertura" required>
+        <textarea id="caso_descripcion" name="caso_descripcion" rows="4" required>{{ caso_descripcion or '' }}</textarea>
 
         <!-- Profesional que abre el caso (se pasa oculto desde sesión) -->
         <input type="hidden" name="doc_pronal" value="{{ session['doc_pronal'] }}">

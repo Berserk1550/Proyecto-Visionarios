@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Gestión Institucional</title>
+  <link rel="stylesheet" href="../static/dashboard.css">
+</head>
+<body>
+  <!-- Menú lateral -->
+  <div class="sidebar">
+    <h2>Menú</h2>
+    <a href="{{ url_for('mostrar_casos') }}">Abrir Nuevo Caso</a>
+    <a href="{{ url_for('nueva_intervencion_form', num_caso=1) }}">Intervenciones</a>
+    <a href="{{ url_for('lista_casos') }}">Listado Casos</a>
+ 
+  <div class="main">
+    <h1>Dashboard Institucional</h1>
+    <div class="cajas">
+      <div class="caja">
+        <h3>Casos Activos</h3>
+        <div class="contador">{{ casos_activos }}</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
