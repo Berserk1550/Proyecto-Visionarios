@@ -1,6 +1,7 @@
 from flask import request, redirect, url_for, render_template
 from programa import programa
 from models.mintervenciones import nueva_intervencion, obtener_intervenciones
+from models.casos import obtener_caso
 
 @programa.route("/intervenciones", methods=["POST"])
 def guardar_intervencion():
@@ -22,4 +23,5 @@ def lista_intervenciones(num_caso):
 
 @programa.route("/intervenciones/nueva/<int:num_caso>")
 def nueva_intervencion_form(num_caso):
-    return render_template("intervenciones.html", num_caso=num_caso)
+    caso = obtener_caso(num_caso)
+    return render_template("intervenciones.html", caso=caso, num_caso=num_caso)

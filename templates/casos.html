@@ -69,7 +69,15 @@
         <!-- Profesional que abre el caso (se pasa oculto desde sesión) -->
         <input type="hidden" name="doc_pronal" value="{{ session['doc_pronal'] }}">
 
+        <!-- Botón registrar -->
         <button type="submit">Registrar caso</button>
+
+        <!-- Botón regresar -->
+        
+        <button type="button" onclick="window.location.href='/dashboard'">Regresar</button>
+
+        <!-- Botón limpiar formulario -->
+        <button type="reset">Limpiar formulario</button>
     </form>
 </body>
 </html>

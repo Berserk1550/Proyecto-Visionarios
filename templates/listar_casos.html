@@ -3,33 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Listado de Casos</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background: #f2f2f2;
-        }
-        .acciones {
-            display: flex;
-            gap: 10px;
-        }
-    </style>
 </head>
 <body>
     <h1>Listado de Casos Estudiantiles</h1>
 
     <!-- Formulario de búsqueda por documento -->
     <form action="{{ url_for('lista_casos') }}" method="GET">
-        <label for="documento">Buscar por documento del estudiante:</label>
-        <input type="text" id="documento" name="documento" placeholder="Ingrese documento">
+        <label for="documento">Documento del estudiante:</label>
+        <input type="text" id="documento" name="documento">
         <button type="submit">Buscar</button>
     </form>
 
@@ -38,7 +19,7 @@
         <thead>
             <tr>
                 <th># Caso</th>
-                <th>Documento Estudiante</th>
+                <th>Documento</th>
                 <th>Tipo</th>
                 <th>Descripción</th>
                 <th>Fecha Apertura</th>
@@ -57,16 +38,11 @@
                 <td>{{ caso.caso_fecha_apertura }}</td>
                 <td>{{ caso.caso_fecha_cierre or '---' }}</td>
                 <td>{{ caso.caso_estado }}</td>
-                <td class="acciones">
-                    <!-- Botón visible para todos -->
+                <td>
                     <a href="{{ url_for('ver_caso', num_caso=caso.num_caso) }}">Ver detalle</a>
-
-                    <!-- Botón añadir intervención -->
                     <a href="{{ url_for('nueva_intervencion_form', num_caso=caso.num_caso) }}">Añadir intervención</a>
-
-                    <!-- Botón solo para admin -->
                     {% if session['rol'] == 'administrador' %}
-                    <form action="{{ url_for('r_cerrar_caso', num_caso=caso.num_caso) }}" method="POST" style="display:inline;">
+                    <form action="{{ url_for('r_cerrar_caso', num_caso=caso.num_caso) }}" method="POST">
                         <button type="submit">Cerrar caso</button>
                     </form>
                     {% endif %}
