@@ -6,6 +6,7 @@ from datetime import datetime
 
 @programa.route("/casos/<int:num_caso>/intervenciones", methods=["POST"])
 def guardar_intervencion(num_caso):
+    caso = obtener_caso(num_caso)
     documento = request.form["documento"]
     descripcion = request.form["descripcion"]
     compromiso = request.form["compromiso"]
