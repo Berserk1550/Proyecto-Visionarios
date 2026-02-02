@@ -2,51 +2,45 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Casos</title>
-
-    <link rel="stylesheet" href="../static/listar_casos.css">  
-    <!-- <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background: #f2f2f2;
-        }
-        .acciones {
-            display: flex;
-            gap: 10px;
-        }
-    </style> -->
 </head>
 <body>
+    <h1>Listado de Casos Estudiantiles</h1>
 
-    <main id="padre_ppal">
+    <!-- Formulario de búsqueda por documento -->
+    <form action="{{ url_for('lista_casos') }}" method="GET">
+        <label for="documento">Documento del estudiante:</label>
+        <input type="text" id="documento" name="documento">
+        <button type="submit">Buscar</button>
+    </form>
 
-        <h1>Listado de Casos Estudiantiles</h1>
-
-        <!-- Formulario de búsqueda por documento -->
-        <form action="{{ url_for('lista_casos') }}" method="GET" id="buscar_estudiante">
-
-            <label for="documento">Buscar por documento del estudiante:</label>
-
-            <div id="caja_horizontal">
-
-                <input type="text" id="documento" name="documento" placeholder="Ingrese documento">
-
-                <button type="submit">Buscar</button>
-
-            </div>
-
-        </form>
-
+    <!-- Tabla de casos -->
+    <table>
+        <thead>
+            <tr>
+                <th># Caso</th>
+                <th>Documento</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+                <th>Fecha Apertura</th>
+                <th>Fecha Cierre</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for caso in casos %}
+            <tr>
+                <td>{{ caso.num_caso }}</td>
+                <td>{{ caso.documento }}</td>
+                <td>{{ caso.caso_tipo }}</td>
+                <td>{{ caso.caso_descripcion }}</td>
+                <td>{{ caso.caso_fecha_apertura }}</td>
+                <td>{{ caso.caso_fecha_cierre or '---' }}</td>
+                <td>{{ caso.caso_estado }}</td>
+                <td>
+                    <a href="{{ url_for('ver_caso', num_caso=caso.num_caso) }}">Ver detalle</a>
+                    <a href="{{ url_for('nueva_intervencion_form', num_caso=caso.num_caso) }}">Añadir intervención</a>
         <!-- Tabla de casos -->
         <table>
 
@@ -108,7 +102,7 @@
 
                     <!-- Botón solo para admin -->
                     {% if session['rol'] == 'administrador' %}
-                    <form action="{{ url_for('r_cerrar_caso', num_caso=caso.num_caso) }}" method="POST" style="display:inline;">
+                    <form action="{{ url_for('r_cerrar_caso', num_caso=caso.num_caso) }}" method="POST">
                         <button type="submit">Cerrar caso</button>
                     </form>
                     {% endif %}

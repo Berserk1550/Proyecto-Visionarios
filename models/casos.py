@@ -12,16 +12,9 @@ def nuevo_caso(documento, caso_tipo, caso_descripcion, caso_fecha_apertura, doc_
     cursor.close()
     conexion.close()
 
-def obtener_caso():
-    conexion = mysql.connector.connect( host="localhost", user="root", password="", database="visionarios" )
-    cursor = conexion.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM casos")
-    casos = cursor.fetchall()
-    cursor.close()
-    conexion.close()
-    return casos
 
-def caso_id(num_caso,):
+
+def obtener_caso(num_caso,):
     conexion = mysql.connector.connect( host="localhost", user="root", password="", database="visionarios" )
     cursor = conexion.cursor(dictionary=True)
     cursor.execute("SELECT * FROM casos WHERE num_caso = %s", (num_caso,))
@@ -49,3 +42,21 @@ def existe_estudiante(documento):
     cursor.close()
     conexion.close()
     return resultado>0
+
+def todos_casos_listados():
+    conexion = mysql.connector.connect(host="localhost", user="root", password="", database="visionarios")
+    cursor=conexion.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM casos")
+    casos=cursor.fetchall()
+    cursor.close()
+    conexion.close()
+    return casos
+
+def obtener_caso_doc(documento):
+    conexion = mysql.connector.connect(host="localhost", user="root", password="", database="visionarios")
+    cursor=conexion.cursor(dictionary=True)
+    cursor.excecute("SELECT * FROM casos WHERE documento =%s"(documento,))
+    casos=cursor.fetchall()
+    cursor.close()
+    conexion.close()
+    return casos

@@ -1,7 +1,7 @@
 from flask import request, render_template, redirect, url_for, session
 from programa import programa
 from datetime import datetime
-from models.casos import nuevo_caso, obtener_caso, caso_id, cerrar_caso, existe_estudiante
+from models.casos import nuevo_caso, obtener_caso, cerrar_caso, existe_estudiante, todos_casos_listados, obtener_caso_doc
 
 
 @programa.route("/casos/nuevo", methods=["GET"])
@@ -26,17 +26,17 @@ def guardar_caso():
 def lista_casos():
     documento = request.args.get("documento")
     if documento:
-        casos = obtener_caso_por_documento(documento)
+        casos = obtener_caso_doc(documento)
     else:
-        casos = obtener_caso()
+        casos = todos_casos_listados()
     
     return render_template("listar_casos.html", casos=casos)
 
 @programa.route("/casos/<int:num_caso>/cerrar", methods=["GET"])
 def ver_caso(num_caso):
     conexion = mysql.connector.connect(host="localhost", user="root", password="", database="visionarios")
-    cursor = conexion.cursor(disctionary=True)
-    cursor.execute("SELECT * FROM casos WHERE num_caso = %s", (num_caso))
+    cursor = conexion.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM casos WHERE num_caso = %s", (num_caso,))
     caso=cursor.fetchone()
 
     cursor.execute("SELECT * FROM intervenciones WHERE num_caso = %s ORDER BY fecha DESC", (num_caso) )
@@ -50,6 +50,6 @@ def ver_caso(num_caso):
 def r_cerrar_caso(num_caso):
     if session["rol"] != "administrador":
         return render_template("casos.html", msg ="No tienes permisos para cerrar casos.")
-    fecha_cierre = datetime.now().strftime("%Y-%m-$d")
+    fecha_cierre = datetime.now().strftime("%Y-%m-%d")
     cerrar_caso(num_caso, fecha_cierre)
     return redirect(url_for("listar_casos"))

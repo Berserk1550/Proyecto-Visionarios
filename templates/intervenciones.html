@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del Caso</title>
+</head>
+<body>
+    <h1>Detalle del Caso #{{ caso.num_caso }}</h1>
+
+    <!-- Información del caso -->
+    <p><strong>Documento estudiante:</strong> {{ caso.documento }}</p>
+    <p><strong>Tipo de caso:</strong> {{ caso.caso_tipo }}</p>
+    <p><strong>Descripción:</strong> {{ caso.caso_descripcion }}</p>
+    <p><strong>Fecha apertura:</strong> {{ caso.caso_fecha_apertura }}</p>
+    <p><strong>Fecha cierre:</strong> {{ caso.caso_fecha_cierre or '---' }}</p>
+    <p><strong>Profesional responsable:</strong> {{ caso.doc_pronal }}</p>
+    <p><strong>Estado:</strong> {{ caso.caso_estado }}</p>
+
+    <!-- Intervenciones -->
+    <h2>Intervenciones realizadas</h2>
+    {% if intervenciones %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Profesional</th>
+                <th>Descripción</th>
+                <th>Compromiso</th>
+                <th>Fecha Compromiso</th>
+                <th>Estado Compromiso</th>
+                <th>Estado Intervención</th>
+                <th>Fecha Registro</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for intervencion in intervenciones %}
+            <tr>
+                <td>{{ intervencion.id_intervencion }}</td>
+                <td>{{ intervencion.fecha }}</td>
+                <td>{{ intervencion.doc_pronal }}</td>
+                <td>{{ intervencion.descripcion }}</td>
+                <td>{{ intervencion.int_compromiso or '---' }}</td>
+                <td>{{ intervencion.int_fecha_compromiso or '---' }}</td>
+                <td>{{ intervencion.int_estado_compromiso }}</td>
+                <td>{{ intervencion.int_estado }}</td>
+                <td>{{ intervencion.fecha_registro }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No hay intervenciones registradas para este caso.</p>
+    {% endif %}
+
+    <!-- Acciones -->
+    <div>
+        <a href="{{ url_for('nueva_intervencion_form', num_caso=caso.num_caso) }}">
+            <button>Añadir intervención</button>
+        </a>
+
+        {% if session['rol'] == 'administrador' and caso.caso_estado == 'abierto' %}
+        <form action="{{ url_for('r_cerrar_caso', num_caso=caso.num_caso) }}" method="POST">
+            <button type="submit">Cerrar caso</button>
+        </form>
+        {% endif %}
+    </div>
+</body>
+</html>
