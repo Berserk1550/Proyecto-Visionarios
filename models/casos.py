@@ -12,8 +12,7 @@ def nuevo_caso(documento, caso_tipo, caso_descripcion, caso_fecha_apertura, doc_
     cursor.close()
     conexion.close()
 
-
-
+#esta funcion le pertenece al boton ver detalle en listar casos.
 def obtener_caso(num_caso,):
     conexion = mysql.connector.connect( host="localhost", user="root", password="", database="visionarios" )
     cursor = conexion.cursor(dictionary=True)
@@ -23,6 +22,7 @@ def obtener_caso(num_caso,):
     conexion.close()
     return caso
 
+#esta funcion le pertenece al boton cerrar caso en listar casos
 def cerrar_caso(num_caso, fecha_cierre):
     conexion = mysql.connector.connect( host="localhost", user="root", password="", database="visionarios" )
     cursor = conexion.cursor()
@@ -43,6 +43,7 @@ def existe_estudiante(documento):
     conexion.close()
     return resultado>0
 
+#con esta funcion visualizamos todos los casos de entrada al html.
 def todos_casos_listados():
     conexion = mysql.connector.connect(host="localhost", user="root", password="", database="visionarios")
     cursor=conexion.cursor(dictionary=True)
@@ -52,6 +53,7 @@ def todos_casos_listados():
     conexion.close()
     return casos
 
+#esta funcion le pertenece al boton buscar de la barra en listar casos.
 def obtener_caso_doc(documento):
     conexion = mysql.connector.connect(host="localhost", user="root", password="", database="visionarios")
     cursor=conexion.cursor(dictionary=True)

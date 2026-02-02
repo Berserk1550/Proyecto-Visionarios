@@ -2,68 +2,45 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Detalle del Caso</title>
+    <title>Nueva Intervención</title>
 </head>
 <body>
-    <h1>Detalle del Caso #{{ caso.num_caso }}</h1>
+    <h1>Nueva Intervención para Caso #{{ caso.num_caso }}</h1>
 
-    <!-- Información del caso -->
-    <p><strong>Documento estudiante:</strong> {{ caso.documento }}</p>
-    <p><strong>Tipo de caso:</strong> {{ caso.caso_tipo }}</p>
-    <p><strong>Descripción:</strong> {{ caso.caso_descripcion }}</p>
-    <p><strong>Fecha apertura:</strong> {{ caso.caso_fecha_apertura }}</p>
-    <p><strong>Fecha cierre:</strong> {{ caso.caso_fecha_cierre or '---' }}</p>
-    <p><strong>Profesional responsable:</strong> {{ caso.doc_pronal }}</p>
-    <p><strong>Estado:</strong> {{ caso.caso_estado }}</p>
+    <form action="{{ url_for('guardar_intervencion', num_caso=caso.num_caso) }}" method="POST">
+        <!-- Datos del caso (solo mostrar, no editar) -->
+        <label>Número de caso:</label>
+        <input type="text" name="num_caso" value="{{ caso.num_caso }}" readonly><br>
 
-    <!-- Intervenciones -->
-    <h2>Intervenciones realizadas</h2>
-    {% if intervenciones %}
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Fecha</th>
-                <th>Profesional</th>
-                <th>Descripción</th>
-                <th>Compromiso</th>
-                <th>Fecha Compromiso</th>
-                <th>Estado Compromiso</th>
-                <th>Estado Intervención</th>
-                <th>Fecha Registro</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for intervencion in intervenciones %}
-            <tr>
-                <td>{{ intervencion.id_intervencion }}</td>
-                <td>{{ intervencion.fecha }}</td>
-                <td>{{ intervencion.doc_pronal }}</td>
-                <td>{{ intervencion.descripcion }}</td>
-                <td>{{ intervencion.int_compromiso or '---' }}</td>
-                <td>{{ intervencion.int_fecha_compromiso or '---' }}</td>
-                <td>{{ intervencion.int_estado_compromiso }}</td>
-                <td>{{ intervencion.int_estado }}</td>
-                <td>{{ intervencion.fecha_registro }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    <p>No hay intervenciones registradas para este caso.</p>
-    {% endif %}
+        <label>Documento estudiante:</label>
+        <input type="text" name="documento" value="{{ caso.documento }}" readonly><br>
 
-    <!-- Acciones -->
-    <div>
-        <a href="{{ url_for('nueva_intervencion_form', num_caso=caso.num_caso) }}">
-            <button>Añadir intervención</button>
-        </a>
+        <label>Tipo de caso:</label>
+        <input type="text" value="{{ caso.caso_tipo }}" readonly><br>
 
-        {% if session['rol'] == 'administrador' and caso.caso_estado == 'abierto' %}
-        <form action="{{ url_for('r_cerrar_caso', num_caso=caso.num_caso) }}" method="POST">
-            <button type="submit">Cerrar caso</button>
-        </form>
-        {% endif %}
-    </div>
+        <label>Fecha apertura:</label>
+        <input type="text" value="{{ caso.caso_fecha_apertura }}" readonly><br>
+
+        <label>Docente que aperturó:</label>
+        <input type="text" value="{{ caso.doc_pronal }}" readonly><br>
+
+        <label>Descripción del caso:</label>
+        <textarea readonly>{{ caso.caso_descripcion }}</textarea><br>
+
+        <label>Estado del caso:</label>
+        <input type="text" value="{{ caso.caso_estado }}" readonly><br>
+
+        <!-- Campos de la intervención -->
+        <label>Descripción intervención:</label>
+        <textarea name="descripcion" required></textarea><br>
+
+        <label>Compromiso:</label>
+        <input type="text" name="compromiso"><br>
+
+        <!-- Botones -->
+        <button type="submit">Guardar intervención</button>
+        <a href="{{ url_for('ver_caso', num_caso=caso.num_caso) }}"><button type="button">Regresar</button></a>
+        <button type="reset">Limpiar</button>
+    </form>
 </body>
 </html>
