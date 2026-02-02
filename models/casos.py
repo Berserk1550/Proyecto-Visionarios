@@ -57,7 +57,7 @@ def todos_casos_listados():
 def obtener_caso_doc(documento):
     conexion = mysql.connector.connect(host="localhost", user="root", password="", database="visionarios")
     cursor=conexion.cursor(dictionary=True)
-    cursor.excecute("SELECT * FROM casos WHERE documento =%s"(documento,))
+    cursor.execute("SELECT * FROM casos WHERE documento =%s",(documento,))
     casos=cursor.fetchall()
     cursor.close()
     conexion.close()
