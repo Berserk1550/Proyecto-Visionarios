@@ -1,4 +1,4 @@
-from flask import request, redirect, url_for, render_template
+from flask import request, redirect, url_for, render_template, session
 from programa import programa
 from models.mintervenciones import nueva_intervencion, obtener_intervenciones
 from models.casos import obtener_caso
@@ -10,7 +10,7 @@ def guardar_intervencion(num_caso):
     documento = request.form["documento"]
     descripcion = request.form["descripcion"]
     compromiso = request.form["compromiso"]
-    doc_pronal = session.get("usuario")
+    doc_pronal = session.get("doc_pronal")
     nueva_intervencion(num_caso, documento, doc_pronal, descripcion, compromiso)
     return redirect(url_for("ver_caso", num_caso=num_caso))
 

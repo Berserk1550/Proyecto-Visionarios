@@ -22,6 +22,8 @@
                 <th>Fecha</th>
                 <th>Profesional</th>
                 <th>Descripción</th>
+                <th>Compromiso</th>
+                <th>Estado compromiso</th>
             </tr>
         </thead>
         <tbody>
@@ -30,6 +32,8 @@
                 <td>{{ intervencion.fecha }}</td>
                 <td>{{ intervencion.doc_pronal }}</td>
                 <td>{{ intervencion.descripcion }}</td>
+                <td>{{ intervencion.int_compromiso }}</td>
+                <td>{{ intervencion.int_estado_compromiso }}</td>
             </tr>
             {% endfor %}
         </tbody>
