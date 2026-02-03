@@ -56,4 +56,4 @@ def r_cerrar_caso(num_caso):
         return render_template("casos.html", msg ="No tienes permisos para cerrar casos.")
     fecha_cierre = datetime.now().strftime("%Y-%m-%d")
     cerrar_caso(num_caso, fecha_cierre)
-    return redirect(url_for("listar_casos"))
+    return redirect(url_for("lista_casos"))

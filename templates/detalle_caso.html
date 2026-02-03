@@ -24,6 +24,7 @@
                 <th>Descripción</th>
                 <th>Compromiso</th>
                 <th>Estado compromiso</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -34,6 +35,13 @@
                 <td>{{ intervencion.descripcion }}</td>
                 <td>{{ intervencion.int_compromiso }}</td>
                 <td>{{ intervencion.int_estado_compromiso }}</td>
+                <td>
+                    {% if intervencion.int_estado_compromiso != 'cumplido' %}
+                    <form action="{{ url_for('marcar_cumplido', id_intervencion=intervencion.id) }}" method="POST" style="display:inline;">
+                        <button type="submit">Marcar como cumplido</button>
+                    </form>
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -57,5 +65,15 @@
         </form>
         {% endif %}
     </div>
+
+    {% with mensajes = get_flashed_messages(with_categories=true) %}
+      {% if mensajes %}
+        <ul>
+        {% for categoria, mensaje in mensajes %}
+          <li style="color: green;">{{ mensaje }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
 </body>
 </html>
