@@ -36,7 +36,7 @@ def login():
                 return redirect(url_for("dashboard"))
 
             else:
-                ("entre aqui por accidente")
+                print("entre aqui por accidente")
                 return render_template("iniciar_sesion.html", msg="Contraseña incorrecta.")
     else:
         print("ups")

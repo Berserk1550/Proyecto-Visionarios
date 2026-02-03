@@ -3,7 +3,5 @@ from programa import programa
 
 @programa.route("/dashboard")
 def dashboard():
-    return render_template("dashboard.html",
-                           
-                           casos_activos=0)
+    return render_template("dashboard.html", casos_activos=0)
 
