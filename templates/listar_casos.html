@@ -2,54 +2,62 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Casos</title>
+    <link rel="stylesheet" href="../static/listar_casos.css">
 </head>
 <body>
-    <h1>Listado de Casos Estudiantiles</h1>
+    <!-- Contenedor principal -->
+    <main id="padre_ppal">
 
-    <!-- Formulario de búsqueda por documento -->
-    <form action="{{ url_for('lista_casos') }}" method="GET">
-        <label for="documento">Documento del estudiante:</label>
-        <input type="text" id="documento" name="documento">
-        <button type="submit">Buscar</button>
-    </form>
+        
 
-    <!-- Tabla de casos -->
-    <table>
-        <thead>
-            <tr>
-                <th># Caso</th>
-                <th>Documento</th>
-                <th>Tipo</th>
-                <th>Descripción</th>
-                <th>Fecha Apertura</th>
-                <th>Fecha Cierre</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for caso in casos %}
-            <tr>
-                <td>{{ caso.num_caso }}</td>
-                <td>{{ caso.documento }}</td>
-                <td>{{ caso.caso_tipo }}</td>
-                <td>{{ caso.caso_descripcion }}</td>
-                <td>{{ caso.caso_fecha_apertura }}</td>
-                <td>{{ caso.caso_fecha_cierre or '---' }}</td>
-                <td>{{ caso.caso_estado }}</td>
-                <td>
-                    <a href="{{ url_for('ver_caso', num_caso=caso.num_caso) }}">Ver detalle</a>
-                    <a href="{{ url_for('nueva_intervencion_form', num_caso=caso.num_caso) }}">Añadir intervención</a>
-                    {% if session['rol'] == 'administrador' %}
-                    <form action="{{ url_for('r_cerrar_caso', num_caso=caso.num_caso) }}" method="POST">
-                        <button type="submit">Cerrar caso</button>
-                    </form>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <!-- Formulario de búsqueda -->
+        <form id="buscar_estudiante" action="{{ url_for('lista_casos') }}" method="GET">
+            <div id="caja_horizontal">
+                <input type="text" id="documento" name="documento" placeholder="documento del estudiante" minlength="6" maxlength="10" pattern="[0-9]{6,10}" required>
+                <button  id="btn_buscar" type="submit">Buscar</button>
+            </div>
+        </form>
+
+        <!-- Tabla de casos -->
+        <table>
+            <thead>
+                <tr id="titulos">
+                    <th># Caso</th>
+                    <th>Documento</th>
+                    <th>Tipo</th>
+                    <th>Descripción</th>
+                    <th>Fecha Apertura</th>
+                    <th>Fecha Cierre</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for caso in casos %}
+                <tr id="informacion">
+                    <td><p>Caso #</p>{{ caso.num_caso }}</td>
+                    <td><p>Documento:</p>{{ caso.documento }}</td>
+                    <td><p>Tipo:</p>{{ caso.caso_tipo }}</td>
+                    <td><p>Descripción:</p>{{ caso.caso_descripcion }}</td>
+                    <td><p>Fecha Apertura:</p>{{ caso.caso_fecha_apertura }}</td>
+                    <td><p>Fecha Cierre:</p>{{ caso.caso_fecha_cierre or '---' }}</td>
+                    <td><p>Estado:</p>{{ caso.caso_estado }}</td>
+                    <td class="acciones">
+                        <a href="{{ url_for('ver_caso', num_caso=caso.num_caso) }}">Ver detalle</a>
+                        <a href="{{ url_for('nueva_intervencion_form', num_caso=caso.num_caso) }}">Añadir intervención</a>
+                        {% if session['rol'] == 'administrador' %}
+                        <form action="{{ url_for('r_cerrar_caso', num_caso=caso.num_caso) }}" method="POST">
+                            <input type="date" name="caso_fecha_cierre" id="caso_fecha_cierre" required>
+                            <button type="submit" id="btn_cerrar_caso">Cerrar caso</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
 </body>
 </html>

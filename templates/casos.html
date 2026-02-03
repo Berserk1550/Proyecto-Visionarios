@@ -2,82 +2,43 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abrir Caso Estudiantil</title>
-    <style>
-        form {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            background: #f9f9f9;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-        input, select, textarea, button {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-        }
-        button {
-            background: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin-top: 15px;
-        }
-        button:hover {
-            background: #0056b3;
-        }
-        .msg {
-            color: red;
-            text-align: center;
-            margin-top: 10px;
-        }
-        .success {
-            color: green;
-            text-align: center;
-            margin-top: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="../static/casos.css">
 </head>
 <body>
-    <h1>Abrir Caso Estudiantil</h1>
+    <!-- Caja principal -->
+    <main id="padre_ppal">
+        <!-- Mensaje dinámico -->
+        {% if msg %}
+            <p class="{% if 'correctamente' in msg %}success{% else %}msg{% endif %}">{{ msg }}</p>
+        {% endif %}
 
-    <!-- Mensaje dinámico -->
-    {% if msg %}
-        <p class="{% if 'correctamente' in msg %}success{% else %}msg{% endif %}">{{ msg }}</p>
-    {% endif %}
+        <!-- Formulario -->
+        <form action="{{ url_for('guardar_caso') }}" method="POST">
+            
+            
+            <input type="text" id="documento" name="documento" placeholder="documento del estudiante" minlength="6" maxlength="10" pattern="[0-9]{6,10}"  required>
 
-    <form action="{{ url_for('guardar_caso') }}" method="POST">
-        <label for="documento">Documento del estudiante:</label>
-        <input type="text" id="documento" name="documento" value="{{ documento or '' }}" required>
+            <label for="caso_tipo">Tipo de caso:</label>
+            <select id="caso_tipo" name="caso_tipo" required>
+                <option value="academico" {% if caso_tipo == 'academico' %}selected{% endif %}>Académico</option>
+                <option value="personal" {% if caso_tipo == 'personal' %}selected{% endif %}>Personal</option>
+                <option value="familiar" {% if caso_tipo == 'familiar' %}selected{% endif %}>Familiar</option>
+                <option value="disciplinario" {% if caso_tipo == 'disciplinario' %}selected{% endif %}>Disciplinario</option>
+            </select>
 
-        <label for="caso_tipo">Tipo de caso:</label>
-        <select id="caso_tipo" name="caso_tipo" required>
-            <option value="academico" {% if caso_tipo == 'academico' %}selected{% endif %}>Académico</option>
-            <option value="personal" {% if caso_tipo == 'personal' %}selected{% endif %}>Personal</option>
-            <option value="familiar" {% if caso_tipo == 'familiar' %}selected{% endif %}>Familiar</option>
-            <option value="disciplinario" {% if caso_tipo == 'disciplinario' %}selected{% endif %}>Disciplinario</option>
-        </select>
+            <label for="caso_descripcion">Descripción del caso:</label>
+            <textarea id="caso_descripcion" name="caso_descripcion" rows="4" required></textarea>
 
-        <label for="caso_descripcion">Descripción del caso:</label>
-        <textarea id="caso_descripcion" name="caso_descripcion" rows="4" required>{{ caso_descripcion or '' }}</textarea>
+            <!-- Profesional oculto -->
+            <input type="hidden" name="doc_pronal" value="{{ session['doc_pronal'] }}">
 
-        <!-- Profesional que abre el caso (se pasa oculto desde sesión) -->
-        <input type="hidden" name="doc_pronal" value="{{ session['doc_pronal'] }}">
-
-        <!-- Botón registrar -->
-        <button type="submit">Registrar caso</button>
-
-        <!-- Botón regresar -->
-        
-        <button type="button" onclick="window.location.href='/dashboard'">Regresar</button>
-
-        <!-- Botón limpiar formulario -->
-        <button type="reset">Limpiar formulario</button>
-    </form>
+            <!-- Botones -->
+            <button type="submit">Registrar caso</button>
+            <button type="button" onclick="window.location.href='/dashboard'">Regresar</button>
+            <button type="reset">Limpiar formulario</button>
+        </form>
+    </main>
 </body>
 </html>

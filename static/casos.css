@@ -1,0 +1,137 @@
+/* Reset general */
+* {
+    box-sizing: border-box;
+    transition: 0.3s;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    background: #F8F9FA;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Caja principal: mobile-first */
+#padre_ppal {
+    width: 100%;
+    max-width: 90%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.63);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Mensajes dinámicos */
+.success {
+    color: #28a745; /* verde éxito */
+    font-weight: bold;
+    text-align: center;
+}
+.msg {
+    color: #dc3545; /* rojo error */
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Labels */
+form label {
+    font-weight: 600;
+    margin: 10px 0 5px;
+    color: #333;
+}
+
+/* Inputs, selects y textarea */
+form input[type="text"],
+form select,
+form textarea {
+    width: 100%;
+    height: 45px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #151515;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+/* Ajuste para textarea */
+form textarea {
+    height: auto;
+    resize: vertical; /* permite agrandar hacia abajo */
+}
+
+/* Botones */
+button {
+    width: 100%;
+    height: 45px;
+    border: none;
+    border-radius: 5px;
+    background: #4DA6FF;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 15px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.15);
+    transition: 0.3s;
+}
+
+/* Hover */
+button:hover {
+    background: #1E90FF;
+}
+
+/* Media query para tablet */
+@media screen and (min-width: 650px) and (max-width: 1023px) {
+    #padre_ppal {
+        max-width: 700px;
+        padding: 30px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* Botones en fila */
+    form button {
+        width: auto;
+        flex: 1;
+    }
+
+    form button + button {
+        margin-left: 10px;
+    }
+}
+
+/* Media query para escritorio */
+@media screen and (min-width: 1024px) {
+    #padre_ppal {
+        max-width: 600px;
+        padding: 40px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* Botones en fila */
+    form button {
+        width: auto;
+        flex: 1;
+    }
+
+    form button + button {
+        margin-left: 10px;
+    }
+}
