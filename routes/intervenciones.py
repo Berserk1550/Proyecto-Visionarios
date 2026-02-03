@@ -26,3 +26,18 @@ def nueva_intervencion_form(num_caso):
     if caso["caso_estado"] == "cerrado":
         return render_template("listar_casos.html", caso=caso, intervenciones=obtener_intervenciones(num_caso), msg="El caso se encuentra cerrado. No puedes añadir intervenciones.")
     return render_template("intervenciones.html", caso=caso)
+
+
+#esta funcion le pertenece a detalle_Caso
+@programa.route("/intervencion/<int:id_intervencion>/cumplir", methods=["POST"])
+def marcar_cumplido(id_intervencion):
+    if session["rol"] not in ["administrador"]:
+        return render_template("detalle_caso.html", msg="No tienes permisos para cambiar el estado del compromiso.")
+    conexion=mysql.connector.connect(host="localhost", user="root", password="", database="visionarios")
+    cursor=conexion.cursor()
+    cursor.execute("UPDATE intervenciones SET int_estado_compromiso =%s WHERE id=%s",("cumplido",id_intervencion))
+    conexion,commit()
+    cursor.close()
+    conexion.close()
+    return redirect(url_for("ver_caso", num_caso=request.args.get("num_caso"), msg="El compromiso ha sido marcado como cumplido."))
+
