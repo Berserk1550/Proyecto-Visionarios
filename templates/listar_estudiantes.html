@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estudiantes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/listar_estudiantes.css">
+</head>
+<body>
+
+<header class="topbar">
+    <h1>Listado de Estudiantes</h1>
+    <a href="/admin/agregar_estudiante" class="btn-add">➕ Nuevo Estudiante</a>
+</header>
+
+<!-- 📱 MOBILE -->
+<section class="student-list">
+    {% for est in estudiantes %}
+    <article class="card">
+        <h2>{{ est[1] }} {{ est[2] }}</h2>
+        <p><strong>Documento:</strong> {{ est[0] }}</p>
+        <p><strong>Grado:</strong> {{ est[4] }}</p>
+        <p><strong>Acudiente:</strong> {{ est[5] }} {{ est[6] }}</p>
+        <p><strong>Teléfono acudiente:</strong> {{ est[7] }}</p>
+
+        <div class="actions">
+            <a href="/admin/modificar_estudiante/{{ est[0] }}" class="btn btn-edit">Modificar</a>
+
+            <form action="/admin/eliminar_estudiante/{{ est[0] }}" method="POST">
+                <button type="submit" class="btn btn-delete">Retirar</button>
+            </form>
+        </div>
+    </article>
+    {% endfor %}
+</section>
+
+<!-- 💻 DESKTOP -->
+<section class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Documento</th>
+                <th>Nombre</th>
+                <th>Fecha Nac.</th>
+                <th>Grado</th>
+                <th>Acudiente</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for est in estudiantes %}
+            <tr>
+                <td>{{ est[0] }}</td>
+                <td>{{ est[1] }} {{ est[2] }}</td>
+                <td>{{ est[3] }}</td>
+                <td>{{ est[4] }}</td>
+                <td>{{ est[5] }} {{ est[6] }}</td>
+                <td>{{ est[7] }}</td>
+                <td class="table-actions">
+                    <a href="/admin/modificar_estudiante/{{ est[0] }}" class="edit-table">Modificar</a>
+                    <form action="/admin/eliminar_estudiante/{{ est[0] }}" method="POST">
+                        <button type="submit" class="delete-table">Retirar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+</body>
+</html>

@@ -3,7 +3,8 @@ from conexion import *
 class Usuario:
 
     def consultarUsuarios(self):
-        cursor = conexion()
+        db = conexion()
+        cursor = db.cursor() 
         sql = """SELECT doc_pronal, prof_nombres, prof_apellidos, prof_telefono, prof_email, user_rol
                  FROM usuarios
                  WHERE prof_estado = %s"""
