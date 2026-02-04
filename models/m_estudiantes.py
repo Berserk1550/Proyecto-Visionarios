@@ -5,7 +5,7 @@ class Estudiante:
     def consultarEstudiante(self):
         db = conexion()
         cursor = db.cursor() 
-        sql = """SELECT documento, est_nombres, est_apellidos, est_fecha_nacimiento, est_grado, nombre_acudiente, apellido_acudiente, telefono
+        sql = """SELECT documento, est_nombres, est_apellidos, est_fecha_nacimiento, est_grado, nombre_acudiente, apellido_acudiente, telefono_acudiente
                 FROM estudiantes 
                 WHERE est_estado = %s"""
         est_estado = "activo"

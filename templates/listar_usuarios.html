@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Profesionales</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Enlace al CSS -->
+    <link rel="stylesheet" href="../static/listar_usuarios.css">
+</head>
+<body>
+
+<header class="topbar">
+    <h1>Listado de Profesionales</h1>
+    <a href="/admin/agregar_usuario" class="btn-add">Nuevo Profesional</a>
+</header>
+
+<!-- 📱 MOBILE - TARJETAS -->
+<section class="user-list">
+    {% for usuario in usuarios %}
+    <article class="card">
+        <h2>{{ usuario[1] }} {{ usuario[2] }}</h2>
+        <p><strong>Documento:</strong> {{ usuario[0] }}</p>
+        <p><strong>Teléfono:</strong> {{ usuario[3] or "No registrado" }}</p>
+        <p><strong>Email:</strong> {{ usuario[4] or "No registrado" }}</p>
+        <span class="role">{{ usuario[5] }}</span>
+
+        <div class="actions">
+            <a href="/admin/modificar_usuario/{{ usuario[0] }}" class="btn btn-edit">Modificar</a>
+
+            <form action="/admin/eliminar_usuario/{{ usuario[0] }}" method="POST">
+                <button type="submit" class="btn btn-delete">Eliminar</button>
+            </form>
+        </div>
+    </article>
+    {% endfor %}
+</section>
+
+<!-- 💻 DESKTOP - TABLA -->
+<section class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Documento</th>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario[0] }}</td>
+                <td>{{ usuario[1] }} {{ usuario[2] }}</td>
+                <td>{{ usuario[3] or "No registrado" }}</td>
+                <td>{{ usuario[4] or "No registrado" }}</td>
+                <td>{{ usuario[5] }}</td>
+                <td class="table-actions">
+                    <a href="/admin/modificar_usuario/{{ usuario[0] }}" class="edit-table">Modificar</a>
+                    <form action="/admin/eliminar_usuario/{{ usuario[0] }}" method="POST">
+                        <button type="submit" class="delete-table">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+</body>
+</html>
