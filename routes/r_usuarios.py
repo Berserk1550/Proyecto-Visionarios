@@ -8,8 +8,7 @@ def consultarUsuario():
     
     respuesta = mi_usuario.consultarUsuarios()
     
-    print(respuesta)
-    return render_template("consultar_usuario.html", usuarios = respuesta)
+    return render_template("listar_usuarios.html", usuarios = respuesta)
 
 @programa.route('/admin/agregar_usuario', methods=['GET', 'POST'])
 def crear_usuario():
