@@ -17,16 +17,13 @@ body {
 }
 
 /* Caja principal: mobile-first */
+
+
 #padre_ppal {
-    width: 100%;
-    max-width: 90%;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.63);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  width: 100%;
+  max-width: 90%;
+  padding: 20px;
+  min-height: 80vh;   /* ocupa el 80% de la altura de la pantalla */
 }
 
 
@@ -39,18 +36,17 @@ form label {
 }
 
 /* Inputs, selects y textarea */
-form input[type="text"],
+form input,
 form select,
 form textarea {
     width: 100%;
-    height: 45px;
+    height: 70px;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #151515;
     font-size: 15px;
     box-sizing: border-box;
 }
-
 /* Ajuste para textarea */
 form textarea {
     height: auto;
@@ -79,8 +75,23 @@ button:hover {
 /* Media query para tablet */
 @media screen and (min-width: 650px) {
     #padre_ppal {
-        max-width: 700px;
-        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.63);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        min-height: auto;
+    }
+
+    form input,
+    form select,
+    form textarea {
+        height: 100px;
+    }
+
+    button{
+        height: 75px;
+        font-size: 17px;
     }
 
     
@@ -93,5 +104,9 @@ button:hover {
         padding: 40px;
     }
 
-    
+    form input,
+    form select,
+    form textarea {
+        height: 60px;
+    }
 }

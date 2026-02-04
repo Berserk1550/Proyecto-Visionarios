@@ -37,7 +37,7 @@ body {
 /* Input */
 #documento {
     width: 100%;              /* ocupa todo el ancho disponible */
-    height: 45px;             /* misma altura que el botón */
+    height: 80px;             /* misma altura que el botón */
     padding: 0 10px;          /* espacio interno razonable */
     border-radius: 5px;
     border: 1px solid #151515;
@@ -48,16 +48,15 @@ body {
 /* Botón */
 button {
     width: 100%;              /* mismo ancho que el input */
-    height: 45px;             /* misma altura */
+    height: 60px;             /* misma altura */
     border: none;
     border-radius: 5px;
     background: #4DA6FF;
     color: white;
-    font-weight: bold;
-    cursor: pointer;
+    
     margin-top: 15px;
     font-size: 15px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.15);
+    
     transition: 0.3s;
 }
 
@@ -93,4 +92,19 @@ button {
     font-weight: bold;
 }
 
+@media screen and (min-width: 650px){
+  #padre_ppal {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.63);
+    padding: 40px; 
+    width: 85%;         
+  }
 
+}
+
+@media  screen and (min-width: 1024px){
+  #padre_ppal {
+    max-width: 600px;     
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.63);
+  }
+    
+}
