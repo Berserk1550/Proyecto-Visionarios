@@ -29,17 +29,7 @@ body {
     gap: 20px;
 }
 
-/* Mensajes dinámicos */
-.success {
-    color: #28a745; /* verde éxito */
-    font-weight: bold;
-    text-align: center;
-}
-.msg {
-    color: #dc3545; /* rojo error */
-    font-weight: bold;
-    text-align: center;
-}
+
 
 /* Labels */
 form label {
@@ -79,8 +69,6 @@ button {
     cursor: pointer;
     margin-top: 15px;
     font-size: 15px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.15);
-    transition: 0.3s;
 }
 
 /* Hover */
@@ -89,27 +77,13 @@ button:hover {
 }
 
 /* Media query para tablet */
-@media screen and (min-width: 650px) and (max-width: 1023px) {
+@media screen and (min-width: 650px) {
     #padre_ppal {
         max-width: 700px;
         padding: 30px;
     }
 
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    /* Botones en fila */
-    form button {
-        width: auto;
-        flex: 1;
-    }
-
-    form button + button {
-        margin-left: 10px;
-    }
+    
 }
 
 /* Media query para escritorio */
@@ -119,19 +93,5 @@ button:hover {
         padding: 40px;
     }
 
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    /* Botones en fila */
-    form button {
-        width: auto;
-        flex: 1;
-    }
-
-    form button + button {
-        margin-left: 10px;
-    }
+    
 }
