@@ -1,0 +1,146 @@
+/* Reset general */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== Celular (mobile-first) ===== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 15px;
+  background: #F8F9FA;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* en móvil mejor arriba */
+  min-height: 100vh;
+  padding: 10px;
+}
+
+/* Contenedor principal */
+#padre_ppal {
+  background: #fff;
+  padding: 15px;          /* menos padding en móvil */
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;            /* ocupa todo el ancho en móvil */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Título principal */
+#padre_ppal h1 {
+  text-align: center;
+  font-size: 24px;        /* más pequeño en móvil */
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Bloques de información */
+.caja {
+  background: #f8f9fa;
+  border: 1px solid #151515;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: left;
+  font-size: 14px;        /* texto más compacto en móvil */
+}
+
+/* Tabla de intervenciones */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+table th, table td {
+  border: 1px solid #151515;
+  padding: 8px;
+  text-align: center;
+  font-size: 12px;        /* más pequeño en móvil */
+}
+
+table th {
+  background: #4DA6FF;
+  color: white;
+  font-weight: bold;
+}
+
+/* Botones */
+button, .acciones a {
+  display: block;         /* en móvil ocupan todo el ancho */
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  background: #4DA6FF;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+button:hover, .acciones a:hover {
+  background: #1E90FF;
+}
+
+/* ===== Tablet ===== */
+@media screen and (min-width: 650px) {
+  #padre_ppal {
+    padding: 30px;
+    width: 90%;
+    max-width: 800px;
+  }
+
+  #padre_ppal h1 {
+    font-size: 28px;
+  }
+
+  .caja {
+    padding: 25px;
+    font-size: 15px;
+  }
+
+  table th, table td {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  button, .acciones a {
+    display: inline-block; /* en tablet ya pueden ir en fila */
+    width: auto;
+    margin: 5px;
+    font-size: 15px;
+  }
+}
+
+/* ===== Escritorio (PC) ===== */
+@media screen and (min-width: 1280px) {
+  #padre_ppal {
+    max-width: 700px;
+    padding: 40px;
+  }
+
+  #padre_ppal h1 {
+    font-size: 32px;
+  }
+
+  .caja {
+    padding: 30px;
+    font-size: 16px;
+  }
+
+  table th, table td {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  button, .acciones a {
+    font-size: 16px;
+    padding: 12px 25px;
+  }
+}
