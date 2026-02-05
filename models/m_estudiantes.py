@@ -51,23 +51,23 @@ class Estudiante:
 
 
     def consultarEstudiantePorDocumento(self, documento):
-        var_conexion = conexion()
+        db = conexion()
+        cursor = db.cursor()
         sql = """
             SELECT est_nombres, est_apellidos, est_fecha_nacimiento, est_grado,
-                est_direccion, est_telefono,
                 nombre_acudiente, apellido_acudiente, telefono_acudiente
             FROM estudiantes
             WHERE documento = %s
         """
-        var_conexion.execute(sql, (documento,))
-        resultado = var_conexion.fetchone()
+        cursor.execute(sql, (documento,))
+        resultado = cursor.fetchone()
         return resultado
 
 
     def actualizarEstudiante(self, documento, est_nombres, est_apellidos, est_fecha_nacimiento,est_grado,nombre_acudiente, apellido_acudiente, telefono_acudiente):
 
-        var_conexion = conexion()
-        mi_db = conexion()
+        db = conexion()
+        cursor = db.cursor()
 
         sql = """
             UPDATE estudiantes
@@ -83,8 +83,8 @@ class Estudiante:
 
         valores = (est_nombres, est_apellidos, est_fecha_nacimiento,est_grado,nombre_acudiente, apellido_acudiente, telefono_acudiente,documento)
 
-        var_conexion.execute(sql, valores)
-        mi_db.commit()
+        cursor.execute(sql, valores)
+        db.commit()
         return "ok"
 
 

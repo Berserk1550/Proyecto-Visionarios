@@ -15,10 +15,10 @@ class Usuario:
     def ingresarUsuario(self, doc_pronal, prof_nombres, prof_apellidos, password_hash,
                         prof_telefono, prof_email, user_rol):
 
-        cursor = conexion()
         db = conexion()
+        cursor = db.cursor()
 
-        # 🔍 Verificar si ya existe el usuario
+        #Verificar si ya existe el usuario
         sql_verificar = "SELECT doc_pronal FROM usuarios WHERE doc_pronal = %s"
         cursor.execute(sql_verificar, (doc_pronal,))
         existe = cursor.fetchone()
@@ -40,7 +40,8 @@ class Usuario:
 
 
     def consultarUsuarioPorDocumento(self, doc_pronal):
-        cursor = conexion()
+        db = conexion()
+        cursor = db.cursor()
         sql = """SELECT prof_nombres, prof_apellidos, prof_telefono, prof_email, user_rol, prof_estado
                  FROM usuarios
                  WHERE doc_pronal = %s"""
@@ -50,8 +51,8 @@ class Usuario:
 
     def actualizarUsuario(self, doc_pronal, prof_nombres, prof_apellidos,prof_telefono, prof_email, user_rol):
 
-        cursor = conexion()
         db = conexion()
+        cursor = db.cursor()
 
         sql = """UPDATE usuarios
                  SET prof_nombres=%s,

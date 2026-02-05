@@ -1,5 +1,6 @@
 import mysql.connector
 from flask import render_template, request, redirect, session, url_for
+import hashlib
 
 
 # Función para obtener conexión a la BD

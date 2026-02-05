@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Estudiante</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='registrar_estudiante.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>Modificar Estudiante</h1>
+    </header>
+
+    <main id="padre_ppal">
+        <form id="form_acceso"
+              action="{{ url_for('modificarEstudiante', documento=documento) }}"
+              method="POST">
+
+            <div id="cont_contenido">
+
+                <!-- ❌ INPUT DOCUMENTO ELIMINADO -->
+
+                <div id="caja_horizontal">
+
+                    <div class="caja_input">
+                        <input type="text"
+                               name="nombre_estud"
+                               value="{{ estudiante[0] }}"
+                               minlength="2"
+                               maxlength="50"
+                               pattern="[a-zA-Z\s]{2,50}"
+                               placeholder="Nombre del estudiante"
+                               required>
+                    </div>
+
+                    <div class="caja_input">
+                        <input type="text"
+                               name="apellido_estud"
+                               value="{{ estudiante[1] }}"
+                               minlength="2"
+                               maxlength="50"
+                               pattern="[a-zA-Z\s]{2,50}"
+                               placeholder="Apellido del estudiante"
+                               required>
+                    </div>
+
+                </div>
+
+                <div class="caja_input">
+                    <input type="date"
+                           name="fecha_nacimiento_estud"
+                           value="{{ estudiante[2] }}"
+                           required>
+                </div>
+
+                <div class="caja_input">
+                    <input type="number"
+                           name="grado_estud"
+                           value="{{ estudiante[3] }}"
+                           min="1"
+                           max="12"
+                           placeholder="Grado"
+                           required>
+                </div>
+
+                <div id="caja_horizontal">
+
+                    <div class="caja_input">
+                        <input type="text"
+                               name="nombre_acudiente"
+                               value="{{ estudiante[4] }}"
+                               minlength="2"
+                               maxlength="50"
+                               pattern="[a-zA-Z\s]{2,50}"
+                               placeholder="Nombre del acudiente"
+                               required>
+                    </div>
+
+                    <div class="caja_input">
+                        <input type="text"
+                               name="apellido_acudiente"
+                               value="{{ estudiante[5] }}"
+                               minlength="2"
+                               maxlength="50"
+                               pattern="[a-zA-Z\s]{2,50}"
+                               placeholder="Apellido del acudiente"
+                               required>
+                    </div>
+
+                </div>
+
+                <div class="caja_input">
+                    <input type="tel"
+                           name="telefono_acudiente"
+                           value="{{ estudiante[6] }}"
+                           minlength="7"
+                           maxlength="15"
+                           pattern="[0-9\s\-\(\)]{7,15}"
+                           placeholder="Teléfono del acudiente"
+                           required>
+                </div>
+
+                <div class="caja_boton">
+                    <button type="submit">Guardar cambios</button>
+                </div>
+
+            </div>
+        </form>
+
+    </main>
+
+</body>
+</html>

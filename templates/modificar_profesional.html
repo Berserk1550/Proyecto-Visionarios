@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar profesional</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='modificar_profesional.css') }}">
+</head>
+<body>
+    <main id="padre_ppal">
+        <form id="form_acceso" action="{{ url_for('modificar_usuario', doc_pronal=doc_pronal) }}" method="post">
+
+            <div id="cont_contenido">
+
+                <div class="caja_input">   
+                    <input type="text"
+                        name="nombres"
+                        value="{{ usuario[0] }}"
+                        minlength="1"
+                        maxlength="50"
+                        pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s\-']{1,50}"
+                        required>
+                </div> 
+
+                <div class="caja_input">
+                    <input type="text"
+                        name="apellidos"
+                        value="{{ usuario[1] }}"
+                        minlength="1"
+                        maxlength="50"
+                        pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s\-']{1,50}"
+                        required>
+                </div>
+
+                <div class="caja_input">
+                    <input type="text"
+                        name="telefono"
+                        value="{{ usuario[2] }}"
+                        minlength="10"
+                        maxlength="10"
+                        pattern="[0-9]{10}"
+                        required>
+                </div>
+
+                <div class="caja_input">   
+                    <input type="email"
+                        name="correo"
+                        value="{{ usuario[3] }}"
+                        minlength="5"
+                        maxlength="76"
+                        required>
+                </div> 
+
+                <div class="caja_input">
+                    <select name="rol" required>
+                        <option value="directivo" {% if usuario[4] == 'directivo' %}selected{% endif %}>Directivo</option>
+                        <option value="coordinacion" {% if usuario[4] == 'coordinacion' %}selected{% endif %}>Coordinación</option>
+                        <option value="docente" {% if usuario[4] == 'docente' %}selected{% endif %}>Docente</option>
+                        <option value="profesional_apoyo" {% if usuario[4] == 'profesional_apoyo' %}selected{% endif %}>Profesional de apoyo</option>
+                    </select>
+                </div>
+
+                <div class="caja_boton">
+                    <button type="submit">Guardar cambios</button>
+                </div>
+
+            </div>
+        </form>
+    </main>
+
+</body>
+</html>

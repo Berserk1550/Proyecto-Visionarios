@@ -16,16 +16,17 @@ def crear_usuario():
         return redirect("/")
 
     if request.method == 'POST':
-        doc_pronal = request.form['documento']
+        doc_pronal = request.form['cedula']
         nombres = request.form['nombres']
         apellidos = request.form['apellidos']
         telefono = request.form.get('telefono')
-        email = request.form.get('email')
+        email = request.form.get('correo')
         rol = request.form['rol']
-        password = request.form['password']  # luego la encriptamos si quieres
+        password = request.form['contrasena']
+        password_hash = hashlib.sha256(password.encode()).hexdigest()
 
-        respuesta = mi_usuario.crearUsuario(
-            doc_pronal, nombres, apellidos, password, telefono, email, rol
+        respuesta = mi_usuario.ingresarUsuario(
+            doc_pronal, nombres, apellidos, password_hash, telefono, email, rol
         )
 
         if respuesta == "existe":
@@ -43,7 +44,7 @@ def modificar_usuario(doc_pronal):
 
     usuario = mi_usuario.consultarUsuarioPorDocumento(doc_pronal)
 
-    return render_template("admin/modificar_usuario.html", usuario=usuario)
+    return render_template("modificar_profesional.html", usuario=usuario)
 
 @programa.route("/admin/modificar_usuario/<doc_pronal>", methods=["POST"])
 def actualizar_usuario(doc_pronal):
