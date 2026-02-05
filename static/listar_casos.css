@@ -101,7 +101,7 @@ button {
 
 }
 
-@media  screen and (min-width: 1024px){
+@media  screen and (min-width: 1280px){
   #padre_ppal {
     max-width: 600px;     
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.63);

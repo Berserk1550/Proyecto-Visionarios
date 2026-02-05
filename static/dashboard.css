@@ -67,13 +67,19 @@ body {
 }
 
 
-/* ===== Tablet: reorganizar en cuadrícula ===== */
+
 @media screen and (min-width: 650px){
   .cont_contenido {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* dos columnas */
     grid-template-rows: repeat(2, 1fr);    /* dos filas */
     gap: 20px;
+  }
+
+  #padre_ppal {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.63);
+    padding: 50px;      
+    min-height: auto;
   }
 
   .cont_contenido a {
@@ -90,11 +96,12 @@ body {
   }
 }
 
-/* ===== Desktop: puedes ajustar aún más ===== */
-@media screen and (min-width: 1024px) {
+
+@media screen and (min-width: 1280px) {
   #padre_ppal {
     max-width: 700px;
     padding: 30px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.63);
   }
 
   .cont_contenido {
@@ -104,7 +111,7 @@ body {
   }
 
   .caja{
-    padding: 30px;
+    padding: 10px;
     margin-left: 160px;
     width: 100%;
     font-size: 19px;
