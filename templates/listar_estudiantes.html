@@ -8,71 +8,70 @@
 </head>
 <body>
 
-<div><svg width="40" height="40" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
-        <path d="M3.57813 12.4981C3.5777 12.6905 3.65086 12.8831 3.79761 13.0299L9.7936 19.0301C10.0864 19.3231 10.5613 19.3233 10.8543 19.0305C11.1473 18.7377 11.1474 18.2629 10.8546 17.9699L6.13418 13.2461L20.3295 13.2461C20.7437 13.2461 21.0795 12.9103 21.0795 12.4961C21.0795 12.0819 20.7437 11.7461 20.3295 11.7461L6.14168 11.7461L10.8546 7.03016C11.1474 6.73718 11.1473 6.2623 10.8543 5.9695C10.5613 5.6767 10.0864 5.67685 9.79362 5.96984L3.84392 11.9233C3.68134 12.0609 3.57812 12.2664 3.57812 12.4961L3.57813 12.4981Z" fill="#000000"/>
-    </svg>
-</div>
+    <div><svg width="40" height="40" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
+            <path d="M3.57813 12.4981C3.5777 12.6905 3.65086 12.8831 3.79761 13.0299L9.7936 19.0301C10.0864 19.3231 10.5613 19.3233 10.8543 19.0305C11.1473 18.7377 11.1474 18.2629 10.8546 17.9699L6.13418 13.2461L20.3295 13.2461C20.7437 13.2461 21.0795 12.9103 21.0795 12.4961C21.0795 12.0819 20.7437 11.7461 20.3295 11.7461L6.14168 11.7461L10.8546 7.03016C11.1474 6.73718 11.1473 6.2623 10.8543 5.9695C10.5613 5.6767 10.0864 5.67685 9.79362 5.96984L3.84392 11.9233C3.68134 12.0609 3.57812 12.2664 3.57812 12.4961L3.57813 12.4981Z" fill="#000000"/>
+        </svg>
+    </div>
 
-<header class="topbar">
-    <h1>Listado de Estudiantes</h1>
-    <a href="/admin/agregar_estudiante" class="btn-add">➕ Nuevo Estudiante</a>
-</header>
+    <header class="topbar">
+        <h1>Listado de Estudiantes</h1>
+        <a href="/admin/agregar_estudiante" class="btn-add">➕ Nuevo Estudiante</a>
+    </header>
 
-<!-- 📱 MOBILE -->
-<section class="student-list">
-    {% for est in estudiantes %}
-    <article class="card">
-        <h2>{{ est[1] }} {{ est[2] }}</h2>
-        <p><strong>Documento:</strong> {{ est[0] }}</p>
-        <p><strong>Grado:</strong> {{ est[4] }}</p>
-        <p><strong>Acudiente:</strong> {{ est[5] }} {{ est[6] }}</p>
-        <p><strong>Teléfono acudiente:</strong> {{ est[7] }}</p>
+    <section class="student-list">
+        {% for est in estudiantes %}
+        <article class="card">
+            <h2>{{ est[1] }} {{ est[2] }}</h2>
+            <p><strong>Documento:</strong> {{ est[0] }}</p>
+            <p><strong>Grado:</strong> {{ est[4] }}</p>
+            <p><strong>Acudiente:</strong> {{ est[5] }} {{ est[6] }}</p>
+            <p><strong>Teléfono acudiente:</strong> {{ est[7] }}</p>
 
-        <div class="actions">
-            <a href="/admin/modificar_estudiante/{{ est[0] }}" class="btn btn-edit">Modificar</a>
+            <div class="actions">
+                <a href="/admin/modificar_estudiante/{{ est[0] }}" class="btn btn-edit">Modificar</a>
 
-            <form action="/admin/eliminar_estudiante/{{ est[0] }}" method="POST">
-                <button type="submit" class="btn btn-delete">Retirar</button>
-            </form>
-        </div>
-    </article>
-    {% endfor %}
-</section>
+                <form action="/admin/eliminar_estudiante/{{ est[0] }}" method="POST">
+                    <button type="submit" class="btn btn-delete">Retirar</button>
+                </form>
+            </div>
+        </article>
+        {% endfor %}
+    </section>
 
-<!-- 💻 DESKTOP -->
-<section class="table-container">
-    <table>
-        <thead>
-            <tr>
-                <th>Documento</th>
-                <th>Nombre</th>
-                <th>Fecha Nac.</th>
-                <th>Grado</th>
-                <th>Acudiente</th>
-                <th>Teléfono</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for est in estudiantes %}
-            <tr>
-                <td>{{ est[0] }}</td>
-                <td>{{ est[1] }} {{ est[2] }}</td>
-                <td>{{ est[3] }}</td>
-                <td>{{ est[4] }}</td>
-                <td>{{ est[5] }} {{ est[6] }}</td>
-                <td>{{ est[7] }}</td>
-                <td class="table-actions">
-                    <a href="/admin/modificar_estudiante/{{ est[0] }}" class="edit-table">Modificar</a>
-                    <form action="/admin/eliminar_estudiante/{{ est[0] }}" method="POST">
-                        <button type="submit" class="delete-table">Retirar</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</section>
+
+    <section class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Documento</th>
+                    <th>Nombre</th>
+                    <th>Fecha Nac.</th>
+                    <th>Grado</th>
+                    <th>Acudiente</th>
+                    <th>Teléfono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for est in estudiantes %}
+                <tr>
+                    <td>{{ est[0] }}</td>
+                    <td>{{ est[1] }} {{ est[2] }}</td>
+                    <td>{{ est[3] }}</td>
+                    <td>{{ est[4] }}</td>
+                    <td>{{ est[5] }} {{ est[6] }}</td>
+                    <td>{{ est[7] }}</td>
+                    <td class="table-actions">
+                        <a href="/admin/modificar_estudiante/{{ est[0] }}" class="edit-table">Modificar</a>
+                        <form action="/admin/eliminar_estudiante/{{ est[0] }}" method="POST">
+                            <button type="submit" class="delete-table">Retirar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
 
 </body>
 </html>

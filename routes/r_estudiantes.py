@@ -18,14 +18,14 @@ def consultarEstudiantes():
 # ================================
 @programa.route('/admin/agregar_estudiante', methods=['GET', 'POST'])
 def crearEstudiante():
-    #if not session.get("login") or session.get("rol") != "administrador":
-        #return redirect('/')
+    if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
+        return redirect("/")
 
     if request.method == 'POST':
-        documento = request.form['documento']
-        nombres = request.form['nombres']
-        apellidos = request.form['apellidos']
-        fecha_nacimiento = request.form['fecha_nacimiento']
+        documento = request.form['documento_estud']
+        nombres = request.form['nombres_estud']
+        apellidos = request.form['apellidos_estud']
+        fecha_nacimiento = request.form['fecha_nacimiento_estud']
         grado = request.form['grado']
         nombre_acudiente = request.form['nombre_acudiente']
         apellido_acudiente = request.form['apellido_acudiente']
@@ -37,11 +37,13 @@ def crearEstudiante():
         )
 
         if respuesta == "existe":
-            return render_template("agregar_estudiante.html", error="El estudiante ya existe")
+            return render_template("registrar_estudiante.html", error="El estudiante ya existe")
+        else:
+            return redirect("/admin/consultar_estudiante")
 
-        return redirect("/admin/consultar_estudiante")
+    # ✅ ESTE RETURN FALTABA
+    return render_template("registrar_estudiante.html")
 
-    return render_template("agregar_estudiante.html")
 
 
 # ================================
@@ -49,7 +51,7 @@ def crearEstudiante():
 # ================================
 @programa.route("/admin/modificar_estudiante/<documento>", methods=["GET"])
 def modificarEstudiante(documento):
-    if not session.get("login"):
+    if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
         return redirect("/")
 
     estudiante = mi_estudiante.consultarEstudiantePorDocumento(documento)
@@ -61,7 +63,7 @@ def modificarEstudiante(documento):
 # ================================
 @programa.route("/admin/actualizar_estudiante/<documento>", methods=["POST"])
 def actualizarEstudiante(documento):
-    if not session.get("login"):
+    if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
         return redirect("/")
 
     nombres = request.form['nombres']
@@ -85,7 +87,7 @@ def actualizarEstudiante(documento):
 # ================================
 @programa.route("/admin/eliminar_estudiante/<documento>", methods=["POST"])
 def eliminarEstudiante(documento):
-    if not session.get("login"):
+    if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
         return redirect("/")
 
     mi_estudiante.eliminarEstudiante(documento)

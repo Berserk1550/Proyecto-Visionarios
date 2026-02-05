@@ -30,6 +30,7 @@ def login():
                 session["nombres"] = usuario["prof_nombres"]
                 session["apellidos"] = usuario["prof_apellidos"]
                 session["rol"] = usuario["user_rol"]
+                print(session["rol"])
                 session["estado"] = usuario["prof_estado"]
 
                 # 🔹 Redirigir al dashboard sin importar el rol

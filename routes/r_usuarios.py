@@ -12,8 +12,8 @@ def consultarUsuario():
 
 @programa.route('/admin/agregar_usuario', methods=['GET', 'POST'])
 def crear_usuario():
-    if not session.get("login") or session.get("rol") != "administrador":
-        return redirect('/')
+    if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
+        return redirect("/")
 
     if request.method == 'POST':
         doc_pronal = request.form['documento']
@@ -29,17 +29,17 @@ def crear_usuario():
         )
 
         if respuesta == "existe":
-            return render_template("admin/agregar_usuario.html", error="El usuario ya existe")
+            return render_template("registrar_profesional.html", error="El usuario ya existe")
 
-        return redirect("/admin/usuarios")
+        return redirect("listar_profesional.html")
 
-    return render_template("admin/agregar_usuario.html")
+    return render_template("registrar_profesional.html")
 
 @programa.route("/admin/modificar_usuario/<doc_pronal>", methods=["GET"])
 def modificar_usuario(doc_pronal):
 
-    if not session.get("login") or session.get("rol") != "administrador":
-        return redirect('/')
+    if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
+        return redirect("/")
 
     usuario = mi_usuario.consultarUsuarioPorDocumento(doc_pronal)
 
@@ -48,8 +48,8 @@ def modificar_usuario(doc_pronal):
 @programa.route("/admin/modificar_usuario/<doc_pronal>", methods=["POST"])
 def actualizar_usuario(doc_pronal):
 
-    if not session.get("login") or session.get("rol") != "administrador":
-        return redirect('/')
+    if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
+        return redirect("/")
 
     nombres = request.form['nombres']
     apellidos = request.form['apellidos']
@@ -64,8 +64,8 @@ def actualizar_usuario(doc_pronal):
 @programa.route("/admin/eliminar_usuario/<doc_pronal>", methods=["POST"])
 def eliminar_usuario(doc_pronal):
 
-    if not session.get("login") or session.get("rol") != "administrador":
-        return redirect('/')
+    if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
+        return redirect("/")
 
     mi_usuario.eliminarUsuario(doc_pronal)
 
