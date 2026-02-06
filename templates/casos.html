@@ -48,9 +48,10 @@
             {% for category, message in messages %}
                 <script>
                 Swal.fire({
-                    icon: '{{ category }}' === 'success' ? 'success' : 'error',
-                    title: '{{ message }}',
-                    confirmButtonText: 'Aceptar'
+                    icon: "{{ category }}" === "success" ? "success" : "error",
+                    title: "{{ message }}",
+                    confirmButtonText: "Aceptar",
+                    confirmButtonColor: "{{ '#4DA6FF' if category == 'success' }}"
                 });
                 </script>
             {% endfor %}

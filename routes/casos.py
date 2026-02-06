@@ -2,7 +2,7 @@ from flask import request, render_template, redirect, url_for, session, flash, g
 from programa import programa
 from datetime import datetime
 import mysql.connector
-from models.casos import nuevo_caso, obtener_caso, cerrar_caso, existe_estudiante, todos_casos_listados, obtener_caso_doc
+from models.casos import *
 
 
 @programa.route("/casos/nuevo", methods=["GET"])
@@ -17,13 +17,15 @@ def guardar_caso():
     caso_fecha_apertura = datetime.now().strftime("%Y-%m-%d")
     doc_pronal = request.form["doc_pronal"]
 
-    if not existe_estudiante(documento):
-        flash("Documento no encontrado, Inténtalo de nuevo.", "error")
+    # Verificamos que el estudiante esté activo
+    if not estudiante_activo(documento):
+        flash("El estudiante no existe o está retirado. No se puede registrar el caso.", "error")
         return render_template("casos.html", document=documento, caso_tipo=caso_tipo, caso_descripcion=caso_descripcion)
 
     nuevo_caso(documento, caso_tipo, caso_descripcion, caso_fecha_apertura, doc_pronal)
     flash("Caso registrado con éxito.", "success")
     return render_template("casos.html")
+
 
 #esta ruta le pertenece a listar casos html, con esta listamos los casos
 @programa.route("/casos", methods=["GET"])
