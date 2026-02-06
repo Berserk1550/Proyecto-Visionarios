@@ -67,3 +67,13 @@ def obtener_caso_doc(documento):
     cursor.close()
     conexion.close()
     return casos
+
+
+def eliminar_caso(num_caso):
+    conexion = mysql.connector.connect(host="localhost", user="root", password="", database="visionarios")
+    cursor=conexion.cursor(dictionary=True)
+    sql="DELETE FROM casos WHERE num_caso=%s"
+    cursor.execute(sql,(num_caso,))
+    conexion.commit()
+    cursor.close()
+    conexion.close()
