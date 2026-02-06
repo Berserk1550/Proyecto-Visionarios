@@ -49,24 +49,38 @@ class Usuario:
         return cursor.fetchone()
 
 
-    def actualizarUsuario(self, doc_pronal, prof_nombres, prof_apellidos,prof_telefono, prof_email, user_rol):
+    def actualizarUsuario(self, doc_pronal, prof_nombres, prof_apellidos,
+                        prof_telefono, prof_email, user_rol):
 
         db = conexion()
         cursor = db.cursor()
 
         sql = """UPDATE usuarios
-                 SET prof_nombres=%s,
-                     prof_apellidos=%s,
-                     prof_telefono=%s,
-                     prof_email=%s,
-                     user_rol=%s
-                 WHERE doc_pronal=%s"""
+                SET prof_nombres=%s,
+                    prof_apellidos=%s,
+                    prof_telefono=%s,
+                    prof_email=%s,
+                    user_rol=%s
+                WHERE doc_pronal=%s"""
 
-        valores = (prof_nombres, prof_apellidos, prof_telefono, prof_email, user_rol, doc_pronal)
+        valores = (
+            prof_nombres,
+            prof_apellidos,
+            prof_telefono,
+            prof_email,
+            user_rol,
+            doc_pronal
+        )
 
         cursor.execute(sql, valores)
         db.commit()
+
+        
+        if cursor.rowcount == 0:
+            return "sin_cambios"
+
         return "ok"
+
 
 
     def cambiarPassword(self, doc_pronal, nuevo_password_hash):
