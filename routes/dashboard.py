@@ -8,7 +8,7 @@ def dashboard():
     if session.get("login"):
         return render_template(
             "dashboard.html",
-            casos_activos=0,
+            
             rol=rol
         )
     return redirect("/")
