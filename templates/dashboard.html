@@ -9,25 +9,22 @@
 
 <body>
 
-<a href="{{ url_for('cerrar_sesion') }}" id="cerrar_sesion">Cerrar Sesión</a>
+<a href="{{ url_for('cerrarSesion') }}" id="cerrar_sesion">Cerrar Sesión</a>
 
 <main id="padre_ppal">
 
-  <h1>Menú</h1> <!-- título arriba del todo -->
+  <h1>Menú</h1>
 
   <div class="cont_contenido">
     <a href="{{ url_for('mostrar_casos') }}">Abrir Nuevo Caso</a>
     <a href="{{ url_for('lista_casos') }}">Listado Casos</a>
-    <a href="{{ url_for('consultarEstudiantes')}}">Listado de estudiantes</a>
+    <a href="{{ url_for('consultarEstudiantes') }}">Listado de estudiantes</a>
 
     {% if rol == "administrador" or rol == "directivo" %}
-    <a href="{{ url_for('consultarUsuario')}}">Listado de profesionales</a>
+      <a href="{{ url_for('consultarUsuario') }}">Listado de profesionales</a>
     {% endif %}
   </div>
 
-<<<<<<< HEAD
-</main>
-=======
   <div class="cont_contenido">
     <div class="cajas">
       <div class="caja">
@@ -36,7 +33,7 @@
       </div>
     </div>
   </div>
+
 </main>
 </body>
 </html>
->>>>>>> 5a9dc9aa7116749d66ad69a579a191a8dc733f9d
