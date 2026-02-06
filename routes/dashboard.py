@@ -13,3 +13,8 @@ def dashboard():
         )
     return redirect("/")
 
+@programa.route("/cerrar_sesion")
+def cerrarSesion():
+    session.clear()
+    
+    return redirect("/")
