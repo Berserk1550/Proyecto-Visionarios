@@ -124,6 +124,12 @@ body {
         color: white;
     }
 
+    .table-actions a,
+    .table-actions form {
+    display: inline-block;
+    }
+
+
     tr:nth-child(even) {
         background: #f2f2f2;
     }
