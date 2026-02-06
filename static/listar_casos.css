@@ -16,6 +16,13 @@ body {
     align-items: center;
 }
 
+div svg {
+  position: absolute;
+  top: 10px; 
+  left: 10px;  
+}
+
+
 /* Caja principal: mobile-first */
 #padre_ppal {
     width: 100%;
