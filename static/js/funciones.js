@@ -17,9 +17,6 @@ function ventana_cerrar() {
 
 }
 
-<<<<<<< HEAD
-/**AQUI DESACTIVAMOS EL CAMPO FECHA SI EL COMPROMISO SE ENCUENTRA VACIO */
-=======
 function buscadorDeArticulos() {
     document.addEventListener("keyup", e => {
         if (e.target.matches("#barra_busqueda")) {
@@ -63,8 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-/**AQUI DESACTIVAMOS EL CAMPO FECHA SI EL COMPROMISO SE ENCUENTRA VACIO 
->>>>>>> 975f9d27a407415715d7cbfa892b2224831ea2f9
+/**AQUI DESACTIVAMOS EL CAMPO FECHA SI EL COMPROMISO SE ENCUENTRA VACIO */
 
 document.addEventListener("DOMContentLoaded", function() {
     const compromisoInput = document.querySelector("input[name='compromiso']");
@@ -83,7 +79,4 @@ document.addEventListener("DOMContentLoaded", function() {
     toggleFecha(); // inicializar estado
 });
 
-<<<<<<< HEAD
-=======
-*/
->>>>>>> 975f9d27a407415715d7cbfa892b2224831ea2f9
+
