@@ -59,3 +59,13 @@ def r_cerrar_caso(num_caso):
     fecha_cierre = datetime.now().strftime("%Y-%m-%d")
     cerrar_caso(num_caso, fecha_cierre)
     return redirect(url_for("lista_casos"))
+
+
+@programa.route("/casos/<int:num_caso>/eliminar", methods=(["POST"]))
+def r_eliminar_caso(num_caso):
+    if session["rol"] != "administrador":
+        flash("No tienes permisos para eliminar casos.", "error")
+        return redirect(url_for("lista_casos"))
+    eliminar_caso(num_caso)
+    flash("Se eliminó el caso correctamente.", "success")
+    return redirect(url_for("lista_casos"))
