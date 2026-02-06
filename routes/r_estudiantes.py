@@ -39,11 +39,12 @@ def crearEstudiante():
         )
 
         if respuesta == "existe":
-            return render_template("registrar_estudiante.html", error="El estudiante ya existe")
-        else:
-            return redirect("/admin/consultar_estudiante")
+            flash("El Estudiente ya existe", "error")
+            return redirect(url_for("crearEstudiante"))
 
-    # ✅ ESTE RETURN FALTABA
+        flash("Estudiente registrado correctamente", "success")
+        return redirect(url_for("crearEstudiante"))
+
     return render_template("registrar_estudiante.html")
 
 
@@ -51,37 +52,55 @@ def crearEstudiante():
 # ================================
 # MOSTRAR FORMULARIO PARA EDITAR
 # ================================
-@programa.route("/admin/modificar_estudiante/<documento>", methods=["GET", "POST"])
-def modificarEstudiante(documento):
+@programa.route("/admin/modificar_estudiante/<documento>", methods=["GET"])
+def cargarModificarEstudiante(documento):
 
     if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
         return redirect("/")
 
-    # 🔹 GET → cargar datos
-    if request.method == "GET":
-        estudiante = mi_estudiante.consultarEstudiantePorDocumento(documento)
-        return render_template(
-            "modificar_estudiante.html",
-            estudiante=estudiante,
-            documento=documento
-        )
+    estudiante = mi_estudiante.consultarEstudiantePorDocumento(documento)
 
-    # 🔹 POST → guardar cambios
-    if request.method == "POST":
-        nombres = request.form['nombre_estud']
-        apellidos = request.form['apellido_estud']
-        fecha_nacimiento = request.form['fecha_nacimiento_estud']
-        grado = request.form['grado_estud']
-        nombre_acudiente = request.form['nombre_acudiente']
-        apellido_acudiente = request.form['apellido_acudiente']
-        telefono_acudiente = request.form['telefono_acudiente']
-
-        mi_estudiante.actualizarEstudiante(
-            documento, nombres, apellidos, fecha_nacimiento,
-            grado, nombre_acudiente, apellido_acudiente, telefono_acudiente
-        )
-
+    if not estudiante:
         return redirect("/admin/consultar_estudiante")
+
+    return render_template(
+        "modificar_estudiante.html",
+        estudiante=estudiante,
+        documento=documento
+    )
+
+@programa.route("/admin/modificar_estudiante/<documento>", methods=["POST"])
+def actualizarEstudiante(documento):
+
+    if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
+        return redirect("/")
+
+    nombres = request.form['nombre_estud']
+    apellidos = request.form['apellido_estud']
+    fecha_nacimiento = request.form['fecha_nacimiento_estud']
+    grado = request.form['grado_estud']
+    nombre_acudiente = request.form['nombre_acudiente']
+    apellido_acudiente = request.form['apellido_acudiente']
+    telefono_acudiente = request.form['telefono_acudiente']
+
+    resultado = mi_estudiante.actualizarEstudiante(
+        documento,
+        nombres,
+        apellidos,
+        fecha_nacimiento,
+        grado,
+        nombre_acudiente,
+        apellido_acudiente,
+        telefono_acudiente
+    )
+
+    if resultado == "sin_cambios":
+        flash("No se realizó ningún cambio", "info")
+    else:
+        flash("Estudiante actualizado correctamente", "success")
+
+    return redirect(url_for("actualizarEstudiante", documento=documento))
+
 
 
 
@@ -93,5 +112,9 @@ def eliminarEstudiante(documento):
     if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
         return redirect("/")
 
-    mi_estudiante.eliminarEstudiante(documento)
-    return redirect("/admin/consultar_estudiante")
+    resultado = mi_estudiante.eliminarEstudiante(documento)
+    
+    if resultado:
+        return redirect(url_for("consultarEstudiantes", deleted=1))
+    else:
+        return redirect(url_for("consultarEstudiantes", deleted=0))

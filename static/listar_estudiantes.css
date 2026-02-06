@@ -1,10 +1,11 @@
 :root {
-    --primary: #3f8efc;
+    --primary: #4DA6FF;
     --danger: #e74c3c;
     --bg: #f4f6f9;
     --card: #ffffff;
     --text: #333;
 }
+
 
 * {
     box-sizing: border-box;
@@ -70,7 +71,7 @@ body {
     background: var(--card);
     padding: 15px;
     border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    
 }
 
 .card h2 {
@@ -131,7 +132,7 @@ body {
         background: white;
         border-radius: 10px;
         overflow: hidden;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.63);
     }
 
     th, td {

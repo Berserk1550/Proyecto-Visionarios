@@ -30,31 +30,68 @@ def crear_usuario():
         )
 
         if respuesta == "existe":
-            return render_template("registrar_profesional.html", error="El usuario ya existe")
+            flash("El usuario ya existe", "error")
+            return redirect(url_for("crear_usuario"))
 
-        return redirect(url_for("consultarUsuario"))
+        flash("Usuario registrado correctamente", "success")
+        return redirect(url_for("crear_usuario"))
 
     return render_template("registrar_profesional.html")
 
-@programa.route("/admin/modificar_usuario/<doc_pronal>", methods=["GET", "POST"])
-def modificar_usuario(doc_pronal):
+
+@programa.route("/admin/modificar_usuario/<doc_pronal>", methods=["GET"])
+def mostrar_modificar_usuario(doc_pronal):
 
     if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
         return redirect("/")
 
-    if request.method == "POST":
-        nombres = request.form['nombres']
-        apellidos = request.form['apellidos']
-        telefono = request.form.get('telefono')
-        correo = request.form.get('correo')  
-        rol = request.form['rol']
+    usuario = mi_usuario.consultarUsuarioPorDocumento(doc_pronal)
 
-        mi_usuario.actualizarUsuario(doc_pronal, nombres, apellidos, telefono, correo, rol)
-
+    if not usuario:
+        flash("Usuario no encontrado", "error")
         return redirect(url_for("consultarUsuario"))
 
-    usuario = mi_usuario.consultarUsuarioPorDocumento(doc_pronal)
-    return render_template("modificar_profesional.html", usuario=usuario, doc_pronal=doc_pronal)
+    return render_template(
+        "modificar_profesional.html",
+        usuario=usuario,
+        doc_pronal=doc_pronal
+    )
+
+
+@programa.route("/admin/modificar_usuario/<doc_pronal>", methods=["POST"])
+def actualizar_usuario(doc_pronal):
+
+    if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
+        return redirect("/")
+
+    nombres = request.form['nombres']
+    apellidos = request.form['apellidos']
+    telefono = request.form.get('telefono')
+    correo = request.form.get('correo')
+    rol = request.form['rol']
+
+    resultado = mi_usuario.actualizarUsuario(
+        doc_pronal,
+        nombres,
+        apellidos,
+        telefono,
+        correo,
+        rol
+    )
+
+    if resultado == "no_existe":
+        flash("El usuario no existe", "error")
+
+    elif resultado == "sin_cambios":
+        flash("No realizaste ningún cambio", "info")
+
+    else:
+        flash("Usuario actualizado correctamente", "success")
+
+    return redirect(url_for("mostrar_modificar_usuario", doc_pronal=doc_pronal))
+
+
+
 
 
 @programa.route("/admin/eliminar_usuario/<doc_pronal>", methods=["POST"])
@@ -63,6 +100,10 @@ def eliminar_usuario(doc_pronal):
     if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
         return redirect("/")
 
-    mi_usuario.eliminarUsuario(doc_pronal)
+    resultado = mi_usuario.desactivarUsuario(doc_pronal)
 
-    return redirect("/admin/usuarios")
+    if resultado:
+        return redirect(url_for("consultarUsuario", deleted=1))
+    else:
+        # Opcional: podrías redirigir con deleted=0 para mostrar error
+        return redirect(url_for("consultarUsuario", deleted=0))
