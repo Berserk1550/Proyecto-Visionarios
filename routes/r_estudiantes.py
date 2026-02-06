@@ -112,5 +112,9 @@ def eliminarEstudiante(documento):
     if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
         return redirect("/")
 
-    mi_estudiante.eliminarEstudiante(documento)
-    return redirect("/admin/consultar_estudiante")
+    resultado = mi_estudiante.eliminarEstudiante(documento)
+    
+    if resultado:
+        return redirect(url_for("consultarEstudiantes", deleted=1))
+    else:
+        return redirect(url_for("consultarEstudiantes", deleted=0))

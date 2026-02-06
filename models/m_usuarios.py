@@ -93,14 +93,21 @@ class Usuario:
         return "ok"
 
 
-    def desactivarUsuario(self, doc_pronal):
-        db = conexion()
-        cursor = db.cursor()
+    def eliminarEstudiante(self, documento):
+        try:
+            db = conexion()
+            cursor = db.cursor()
+            sql = """UPDATE estudiantes
+                    SET est_estado = 'retirado'
+                    WHERE documento = %s"""
+            cursor.execute(sql, (documento,))
+            db.commit()
+            return True  # Indicamos que fue exitoso
+        except Exception as e:
+            print("Error al desactivar estudiante:", e)
+            return False
 
-        sql = "UPDATE usuarios SET prof_estado='inactivo' WHERE doc_pronal=%s"
-        cursor.execute(sql, (doc_pronal,))
-        db.commit()
-        return "ok"
+
 
 
 mi_usuario = Usuario()
