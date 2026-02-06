@@ -42,7 +42,7 @@ div svg {
 }
 
 /* Input */
-#documento {
+#barra_busqueda {
     width: 100%;              /* ocupa todo el ancho disponible */
     height: 80px;             /* misma altura que el botón */
     padding: 0 10px;          /* espacio interno razonable */
