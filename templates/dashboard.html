@@ -9,23 +9,23 @@
 
 <body>
 
-<a href="{{ url_for('cerrarSesion') }}" id="cerrar_sesion">Cerrar Sesión</a>
+  <a href="{{ url_for('cerrarSesion') }}" id="cerrar_sesion">Cerrar Sesión</a>
 
-<main id="padre_ppal">
+  <main id="padre_ppal">
 
-  <h1>Menú</h1>
+    <h1>Menú</h1>
 
-  <div class="cont_contenido">
-    <a href="{{ url_for('mostrar_casos') }}">Abrir Nuevo Caso</a>
-    <a href="{{ url_for('lista_casos') }}">Listado Casos</a>
-    <a href="{{ url_for('consultarEstudiantes') }}">Listado de estudiantes</a>
+    <div class="cont_contenido">
+      <a href="{{ url_for('mostrar_casos') }}">Abrir Nuevo Caso</a>
+      <a href="{{ url_for('lista_casos') }}">Listado Casos</a>
+      <a href="{{ url_for('consultarEstudiantes') }}">Listado de estudiantes</a>
 
-    {% if rol == "administrador" or rol == "directivo" %}
-      <a href="{{ url_for('consultarUsuario') }}">Listado de profesionales</a>
-    {% endif %}
-  </div>
+      {% if rol == "administrador" or rol == "directivo" %}
+        <a href="{{ url_for('consultarUsuario') }}">Listado de profesionales</a>
+      {% endif %}
+    </div>
 
-</main>
+  </main>
 </body>
 </html>
 

@@ -4,74 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nueva Intervención</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='intervencion.css') }}">
+    <link rel="stylesheet" href="/static/intervenciones.css">
 </head>
 <body>
 
-    <div id="padre_ppal">
+    <main id="padre_ppal">
 
-        <form id="form_acceso"
-            action="{{ url_for('guardar_intervencion', num_caso=caso.num_caso) }}"
-            method="POST">
+        <h1>Nueva Intervención para Caso #{{ caso.num_caso }}</h1>
 
-            <h1>Nueva Intervención<br>Caso #{{ caso.num_caso }}</h1>
+        <form id="form_acceso" action="{{ url_for('guardar_intervencion', num_caso=caso.num_caso) }}" method="POST">
+            <!-- Datos del caso (solo mostrar, no editar) -->
 
-            <div class="caja_input">
-                <label>Número de caso</label>
-                <input type="text" value="{{ caso.num_caso }}" readonly>
-            </div>
+            <label>Documento estudiante:</label>
+            <input type="text" name="documento" value="{{ caso.documento }}" readonly>
 
-            <div class="caja_input">
-                <label>Documento estudiante</label>
-                <input type="text" value="{{ caso.documento }}" readonly>
-            </div>
+            <label>Tipo de caso:</label>
+            <input type="text" value="{{ caso.caso_tipo }}" readonly>
 
-            <div class="caja_input">
-                <label>Tipo de caso</label>
-                <input type="text" value="{{ caso.caso_tipo }}" readonly>
-            </div>
+            <label>Fecha apertura:</label>
+            <input type="text" value="{{ caso.caso_fecha_apertura }}" readonly>
 
-            <div class="caja_input">
-                <label>Fecha apertura</label>
-                <input type="text" value="{{ caso.caso_fecha_apertura }}" readonly>
-            </div>
+            <label>Docente que aperturó:</label>
+            <input type="text" value="{{ caso.doc_pronal }}" readonly>
 
-            <div class="caja_input">
-                <label>Docente que aperturó</label>
-                <input type="text" value="{{ caso.doc_pronal }}" readonly>
-            </div>
+            <label>Descripción del caso:</label>
+            <textarea readonly>{{ caso.caso_descripcion }}</textarea>
 
-            <div class="caja_input">
-                <label>Descripción del caso</label>
-                <textarea readonly>{{ caso.caso_descripcion }}</textarea>
-            </div>
+            <label>Estado del caso:</label>
+            <input type="text" value="{{ caso.caso_estado }}" readonly>
 
-            <div class="caja_input">
-                <label>Estado del caso</label>
-                <input type="text" value="{{ caso.caso_estado }}" readonly>
-            </div>
+            <!-- Campos de la intervención -->
+            <label>Descripción intervención:</label>
+            <textarea name="descripcion" placeholder="Ingrese la descripción de la intervención" required></textarea><br>
 
-            <div class="caja_input">
-                <label>Descripción intervención</label>
-                <textarea name="descripcion" required></textarea>
-            </div>
+            <label>Compromiso:</label>
+            <input type="text" name="compromiso" placeholder="Ingresa un compromiso"><br>
 
-            <div class="caja_input">
-                <label>Compromiso</label>
-                <input type="text" name="compromiso">
-            </div>
-
-            <div class="caja_boton">
-                <button type="submit">Guardar intervención</button>
-                <button type="reset">Limpiar</button>
-            </div>
-
+            <!-- Botones -->
+            <button type="submit">Guardar intervención</button>
+            <button type="reset">Limpiar</button>
         </form>
-
-    </div>
-
+    </main>
 </body>
 </html>
-
-
-

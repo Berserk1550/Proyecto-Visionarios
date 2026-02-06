@@ -14,7 +14,15 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0;
 }
+
+div svg {
+  position: absolute;
+  top: 10px; 
+  left: 10px;  
+}
+
 
 /* Caja principal: mobile-first */
 
@@ -52,6 +60,19 @@ form textarea {
     height: auto;
     resize: vertical; /* permite agrandar hacia abajo */
 }
+
+button[type="reset"] {
+  margin-top: 30px; /* más separado */
+}
+
+
+button[type="reset"] {
+  background: #e0e0e0;   /* gris claro */
+  color: #333;
+  border: 1px solid #7a7979;
+}
+
+
 
 /* Botones */
 button {

@@ -18,13 +18,13 @@ def login():
         print(resultado)
 
         if len(resultado) == 0:
-            return render_template("iniciar_sesion.html", msg="El documento ingresado se encuentra sin registrar.")
+            return render_template("iniciar_sesion.html", msg="El documento ingresado no se encuentra registrado.")
         else:
             usuario = resultado[0]
             print("si valido")
             print(usuario["user_password_hash"])
             if usuario["user_password_hash"] == password_hash:
-                print("todo esta correcto papu")
+                print("todo esta correcto")
                 session["login"] = True
                 session["doc_pronal"] = usuario["doc_pronal"]
                 session["nombres"] = usuario["prof_nombres"]

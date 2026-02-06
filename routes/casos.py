@@ -26,8 +26,6 @@ def guardar_caso():
     flash("Caso registrado con éxito.", "success")
     return render_template("casos.html")
 
-
-#esta ruta le pertenece a listar casos html, con esta listamos los casos
 @programa.route("/casos", methods=["GET"])
 def lista_casos():
     documento = request.args.get("documento")
