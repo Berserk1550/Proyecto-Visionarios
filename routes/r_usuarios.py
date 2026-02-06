@@ -32,35 +32,30 @@ def crear_usuario():
         if respuesta == "existe":
             return render_template("registrar_profesional.html", error="El usuario ya existe")
 
-        return redirect("listar_profesional.html")
+        return redirect(url_for("consultarUsuario"))
 
     return render_template("registrar_profesional.html")
 
-@programa.route("/admin/modificar_usuario/<doc_pronal>", methods=["GET"])
+@programa.route("/admin/modificar_usuario/<doc_pronal>", methods=["GET", "POST"])
 def modificar_usuario(doc_pronal):
 
     if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
         return redirect("/")
 
+    if request.method == "POST":
+        nombres = request.form['nombres']
+        apellidos = request.form['apellidos']
+        telefono = request.form.get('telefono')
+        correo = request.form.get('correo')  
+        rol = request.form['rol']
+
+        mi_usuario.actualizarUsuario(doc_pronal, nombres, apellidos, telefono, correo, rol)
+
+        return redirect(url_for("consultarUsuario"))
+
     usuario = mi_usuario.consultarUsuarioPorDocumento(doc_pronal)
+    return render_template("modificar_profesional.html", usuario=usuario, doc_pronal=doc_pronal)
 
-    return render_template("modificar_profesional.html", usuario=usuario)
-
-@programa.route("/admin/modificar_usuario/<doc_pronal>", methods=["POST"])
-def actualizar_usuario(doc_pronal):
-
-    if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
-        return redirect("/")
-
-    nombres = request.form['nombres']
-    apellidos = request.form['apellidos']
-    telefono = request.form.get('telefono')
-    email = request.form.get('email')
-    rol = request.form['rol']
-
-    mi_usuario.actualizarUsuario(doc_pronal, nombres, apellidos, telefono, email, rol)
-
-    return redirect("/admin/usuarios")
 
 @programa.route("/admin/eliminar_usuario/<doc_pronal>", methods=["POST"])
 def eliminar_usuario(doc_pronal):

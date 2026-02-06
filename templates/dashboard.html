@@ -19,7 +19,10 @@
     <a href="{{ url_for('mostrar_casos') }}">Abrir Nuevo Caso</a>
     <a href="{{ url_for('lista_casos') }}">Listado Casos</a>
     <a href="{{ url_for('consultarEstudiantes')}}">Listado de estudiantes</a>
+
+    {% if rol == "administrador" or rol == "directivo" %}
     <a href="{{ url_for('consultarUsuario')}}">Listado de profesionales</a>
+    {% endif %}
   </div>
 
   <div class="cont_contenido">
