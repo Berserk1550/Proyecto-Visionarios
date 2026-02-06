@@ -100,6 +100,10 @@ def eliminar_usuario(doc_pronal):
     if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
         return redirect("/")
 
-    mi_usuario.desactivarUsuario(doc_pronal)
+    resultado = mi_usuario.desactivarUsuario(doc_pronal)
 
-    return redirect(url_for("consultarUsuario"))
+    if resultado:
+        return redirect(url_for("consultarUsuario", deleted=1))
+    else:
+        # Opcional: podrías redirigir con deleted=0 para mostrar error
+        return redirect(url_for("consultarUsuario", deleted=0))
