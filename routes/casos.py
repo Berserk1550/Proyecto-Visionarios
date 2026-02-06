@@ -47,6 +47,20 @@ def ver_caso(num_caso):
     cursor.execute("SELECT * FROM intervenciones WHERE num_caso = %s ORDER BY fecha DESC", (num_caso,) )
     intervenciones=cursor.fetchall()
 
+    hoy= datetime.now().date()
+    for intervencion in intervenciones:
+        fecha_limite = intervencion["int_fecha_compromiso"] 
+        if fecha_limite:
+            fecha_c = fecha_limite 
+            if fecha_c > hoy:
+                intervencion["estado_calculado"] = "Pendiente"
+            elif fecha_c == hoy:
+                intervencion["estado_calculado"] = "Próxima a vencer"
+            else:
+                intervencion["estado_calculado"] = "Incumplida"
+        else: 
+            intervencion["estado_calculado"] = "Sin compromiso"
+
     cursor.close()
     conexion.close()
     return render_template("detalle_caso.html", caso=caso, intervenciones=intervenciones)
