@@ -14,5 +14,48 @@ function ventana_cerrar() {
             }
         })
     })
-    
+
 }
+
+function buscadorDeArticulos() {
+    document.addEventListener("keyup", e => {
+        if (e.target.matches("#barra_busqueda")) {
+
+            const filas = document.querySelectorAll("#informacion");
+            let coincidencias = 0;
+
+            filas.forEach(fila => {
+                const texto = fila.textContent.toLowerCase();
+                const busqueda = e.target.value.toLowerCase();
+
+                if (texto.includes(busqueda)) {
+                    fila.style.display = "";
+                    coincidencias++;
+                } else {
+                    fila.style.display = "none";
+                }
+            });
+
+            let mensaje = document.getElementById("mensaje_no_encontrado");
+
+            if (!mensaje) {
+
+                e.target.parentNode.appendChild(mensaje);
+            }
+
+            if (coincidencias === 0) {
+                mensaje.style.display = "block";
+            } else {
+                mensaje.style.display = "none";
+            }
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    ventana_cerrar();
+
+    if (document.getElementById("barra_busqueda")) {
+        buscadorDeArticulos();
+    }
+});

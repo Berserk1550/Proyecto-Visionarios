@@ -33,6 +33,40 @@ body {
     color: black;
 }
 
+#recoger_busqueda{
+    position: relative;
+    width: 300px;
+}
+
+#recoger_busqueda svg {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+}
+
+#barra_busqueda {
+    width: 100%;
+    padding: 10px 10px 10px 35px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+#recoger_busqueda {
+    width: 100%;
+    margin-bottom: 20px;
+    background: #e5dede;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    height: 40px;
+}
+
+    #recoger_busqueda #barra_busqueda {
+        padding-left: 50px;
+        outline: none;
+    }
+
 .btn-add {
     background: var(--primary);
     color: white;
@@ -48,19 +82,19 @@ body {
     gap: 15px;
 }
 
-.card {
+#informacion {
     background: var(--card);
     padding: 15px;
     border-radius: 10px;
     
 }
 
-.card h2 {
+#informacion h2 {
     font-size: 16px;
     margin-bottom: 5px;
 }
 
-.card p {
+#informacion p {
     font-size: 14px;
     margin: 2px 0;
 }
@@ -111,6 +145,10 @@ body {
 }
 
 @media (min-width: 768px) {
+
+    #recoger_busqueda {
+        width: 50%;
+    }
 
     .user-list {
         display: none;

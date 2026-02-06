@@ -61,25 +61,40 @@ body {
     font-size: 14px;
 }
 
+#recoger_busqueda {
+    width: 100%;
+    margin-bottom: 20px;
+    background: #e5dede;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    height: 40px;
+}
+
+    #recoger_busqueda #barra_busqueda {
+        padding-left: 50px;
+        outline: none;
+    }
+
 /* 📱 TARJETAS */
 .student-list {
     display: grid;
     gap: 15px;
 }
 
-.card {
+#informacion {
     background: var(--card);
     padding: 15px;
     border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.25);
     
 }
 
-.card h2 {
+#informacion h2 {
     font-size: 16px;
     margin-bottom: 6px;
 }
 
-.card p {
+#informacion p {
     font-size: 14px;
     margin: 3px 0;
 }
@@ -117,6 +132,10 @@ body {
 }
 
 @media (min-width: 768px) {
+
+    #recoger_busqueda {
+    width: 50%;
+}
 
     .student-list {
         display: none;
