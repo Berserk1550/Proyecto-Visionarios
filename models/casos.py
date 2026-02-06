@@ -33,15 +33,20 @@ def cerrar_caso(num_caso, fecha_cierre):
     cursor.close()
     conexion.close()
 
-def existe_estudiante(documento):
-    conexion = mysql.connector.connect( host="localhost", user="root", password="", database="visionarios" )
-    cursor=conexion.cursor()
-    sql="SELECT COUNT(*)FROM estudiantes WHERE documento=%s"
-    cursor.execute(sql,(documento,))
-    resultado=cursor.fetchone()[0]
+def estudiante_activo(documento):
+    conexion = mysql.connector.connect(host="localhost", user="root", password="", database="visionarios")
+    cursor = conexion.cursor()
+    sql = "SELECT est_estado FROM estudiantes WHERE documento = %s"
+    cursor.execute(sql, (documento,))
+    resultado = cursor.fetchone()
     cursor.close()
     conexion.close()
-    return resultado>0
+
+    if resultado and resultado[0] == "activo":
+        return True
+    else:
+        return False
+
 
 #con esta funcion visualizamos todos los casos de entrada al html.
 def todos_casos_listados():

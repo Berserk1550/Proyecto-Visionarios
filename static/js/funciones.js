@@ -59,3 +59,24 @@ document.addEventListener("DOMContentLoaded", () => {
         buscadorDeArticulos();
     }
 });
+
+/**AQUI DESACTIVAMOS EL CAMPO FECHA SI EL COMPROMISO SE ENCUENTRA VACIO 
+
+document.addEventListener("DOMContentLoaded", function() {
+    const compromisoInput = document.querySelector("input[name='compromiso']");
+    const fechaInput = document.querySelector("input[name='fecha_compromiso']");
+
+    function toggleFecha() {
+        if (compromisoInput.value.trim() === "") {
+            fechaInput.disabled = true;
+            fechaInput.value = "";
+        } else {
+            fechaInput.disabled = false;
+        }
+    }
+
+    compromisoInput.addEventListener("input", toggleFecha);
+    toggleFecha(); // inicializar estado
+});
+
+*/
