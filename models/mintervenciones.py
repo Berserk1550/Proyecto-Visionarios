@@ -10,11 +10,12 @@ def nueva_intervencion(num_caso, documento, doc_pronal, descripcion, compromiso=
         sql = """INSERT INTO intervenciones
              (num_caso, doc_pronal, descripcion,
              int_compromiso, int_fecha_compromiso, int_estado_compromiso, int_estado, fecha, fecha_registro)
-             VALUES (%s,%s,%s,%s,%s,%s,'activa',%s,%s)"""
-        valores = ( num_caso, doc_pronal, descripcion, compromiso, fecha_compromiso,"Pendiente", datetime.now().strftime("%Y-%m-%d"), datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+             VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+        valores = ( num_caso, doc_pronal, descripcion, compromiso, fecha_compromiso,"Pendiente", "realizada",datetime.now().strftime("%Y-%m-%d"), datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     else:
-        sql= """INSERT INTO intervenciones(num_caso, doc_pronal, descripcion, int_estado, fecha, fecha_registro) VALUES (%s,%s,%s,'activa',%s,%s)"""
-        valores = ( num_caso, doc_pronal, descripcion, datetime.now().strftime("%Y-%m-%d"), datetime.now().strftime("%Y-%m-%d %H:%M:%S") )
+        sql= """INSERT INTO intervenciones(num_caso, doc_pronal, descripcion, int_estado, fecha, fecha_registro)
+        VALUES (%s,%s,%s,%s,%s,%s)"""
+        valores = (num_caso, doc_pronal, descripcion,"realizada", datetime.now().strftime("%Y-%m-%d"), datetime.now().strftime("%Y-%m-%d %H:%M:%S") )
     cursor.execute(sql, valores)
     conexion.commit()
     cursor.close()

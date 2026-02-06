@@ -47,11 +47,7 @@
             <td>{{ intervencion.int_compromiso }}</td>
             <td>{{ intervencion.int_estado_compromiso }}</td>
             <td>
-              {% if intervencion.int_estado_compromiso != 'cumplido' %}
-              <form action="{{ url_for('marcar_cumplido', id_intervencion=intervencion.id) }}" method="POST" style="display:inline;">
-                <button type="submit">Marcar como cumplido</button>
-              </form>
-              {% endif %}
+             
             </td>
           </tr>
           {% endfor %}
