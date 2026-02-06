@@ -22,7 +22,7 @@ def guardar_intervencion(num_caso):
 
     nueva_intervencion(num_caso, documento, doc_pronal, descripcion, compromiso, fecha_compromiso)
     flash("Intervencion guardada con éxito", "success")
-    return redirect(url_for("ver_caso", num_caso=num_caso))
+    return redirect(url_for("nueva_intervencion_form", num_caso=num_caso))
 
 @programa.route("/casos/<int:num_caso>/intervenciones", methods=["GET"])
 def lista_intervenciones(num_caso):
