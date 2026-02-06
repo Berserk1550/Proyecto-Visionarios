@@ -8,7 +8,7 @@
 </head>
 <body>
     <main id="padre_ppal">
-        <form id="form_acceso" action="{{ url_for('modificar_usuario', doc_pronal=doc_pronal) }}" method="post">
+        <form id="form_acceso" action="{{ url_for('mostrar_modificar_usuario', doc_pronal=doc_pronal) }}" method="post">
 
             <div id="cont_contenido">
 
@@ -46,8 +46,7 @@
                     <input type="email"
                         name="correo"
                         value="{{ usuario[3] }}"
-                        minlength="5"
-                        maxlength="76"
+                        pattern="^[a-zA-Z0-9]+([._-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.-]?[a-zA-Z0-9]+)*\.(com|net|org|edu)$"
                         required>
                 </div> 
 
@@ -67,6 +66,21 @@
             </div>
         </form>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <script>
+            Swal.fire({
+            icon: "{{ category }}",
+            title: "{{ message }}",
+            confirmButtonColor: "#4DA6FF"
+            });
+        </script>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
 
 </body>
 </html>

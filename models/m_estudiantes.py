@@ -64,28 +64,40 @@ class Estudiante:
         return resultado
 
 
-    def actualizarEstudiante(self, documento, est_nombres, est_apellidos, est_fecha_nacimiento,est_grado,nombre_acudiente, apellido_acudiente, telefono_acudiente):
+    def actualizarEstudiante(self, documento, nombres, apellidos, fecha_nacimiento,grado, nombre_acudiente, apellido_acudiente, telefono_acudiente):
 
         db = conexion()
         cursor = db.cursor()
 
-        sql = """
-            UPDATE estudiantes
-            SET est_nombres=%s,
-                est_apellidos=%s,
-                est_fecha_nacimiento=%s,
-                est_grado=%s,
-                nombre_acudiente=%s,
-                apellido_acudiente=%s,
-                telefono_acudiente=%s
-            WHERE documento=%s
-        """
+        sql = """UPDATE estudiantes
+                SET est_nombres = %s,
+                    est_apellidos = %s,
+                    est_fecha_nacimiento=%s,
+                    est_grado=%s,
+                    nombre_acudiente=%s,
+                    apellido_acudiente=%s,
+                    telefono_acudiente=%s
+                WHERE documento = %s"""
 
-        valores = (est_nombres, est_apellidos, est_fecha_nacimiento,est_grado,nombre_acudiente, apellido_acudiente, telefono_acudiente,documento)
+        valores = (
+            nombres,
+            apellidos,
+            fecha_nacimiento,
+            grado,
+            nombre_acudiente,
+            apellido_acudiente,
+            telefono_acudiente,
+            documento
+        )
 
         cursor.execute(sql, valores)
         db.commit()
+
+        if cursor.rowcount == 0:
+            return "sin_cambios"
+
         return "ok"
+
 
 
     def eliminarEstudiante(self, documento):

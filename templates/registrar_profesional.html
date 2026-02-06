@@ -62,7 +62,7 @@
                            name="correo" 
                            minlength="5"
                            maxlength="76"
-                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
+                           pattern="^[a-zA-Z0-9]+([._-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.-]?[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$"
                            placeholder="Correo" 
                            required>
                 </div> 
@@ -94,5 +94,21 @@
             </div>
         </form>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+                <script>
+                    Swal.fire({
+                    icon: "{{ 'success' if category == 'success' else 'error' }}",
+                    title: "{{ message }}",
+                    confirmButtonColor: "#4DA6FF"
+                    });
+                </script>
+                {% endfor %}
+            {% endif %}
+    {% endwith %}
+
 </body>
 </html>
