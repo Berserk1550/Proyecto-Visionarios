@@ -1,4 +1,4 @@
-from flask import request, render_template, redirect, url_for, session
+from flask import request, render_template, redirect, url_for, session, flash, get_flashed_messages
 from programa import programa
 from datetime import datetime
 import mysql.connector
@@ -18,10 +18,12 @@ def guardar_caso():
     doc_pronal = request.form["doc_pronal"]
 
     if not existe_estudiante(documento):
+        flash("El documento de identidad del estudiante no existe. Verifica e inténtalo de nuevo.", "error")
         return render_template("casos.html", msg="Verifica que el documento de identidad del estudiante sea el correcto. Inténtalo de nuevo.", document=documento, caso_tipo=caso_tipo, caso_descripcion=caso_descripcion)
 
     nuevo_caso(documento, caso_tipo, caso_descripcion, caso_fecha_apertura, doc_pronal)
-    return redirect(url_for("mostrar_casos", msg="Caso registrado con éxito."))
+    flash("Caso registrado con éxito.", "success")
+    return render_template("casos.html", msg="Caso registrado con éxito.")
 
 #esta ruta le pertenece a listar casos html, con esta listamos los casos
 @programa.route("/casos", methods=["GET"])
