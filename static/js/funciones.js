@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-/**AQUI DESACTIVAMOS EL CAMPO FECHA SI EL COMPROMISO SE ENCUENTRA VACIO 
+/**AQUI DESACTIVAMOS EL CAMPO FECHA SI EL COMPROMISO SE ENCUENTRA VACIO */
 
 document.addEventListener("DOMContentLoaded", function() {
     const compromisoInput = document.querySelector("input[name='compromiso']");
@@ -79,4 +79,4 @@ document.addEventListener("DOMContentLoaded", function() {
     toggleFecha(); // inicializar estado
 });
 
-*/
+
