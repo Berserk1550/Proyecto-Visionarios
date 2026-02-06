@@ -89,13 +89,13 @@ class Estudiante:
 
 
     def eliminarEstudiante(self, documento):
-        var_conexion = conexion()
-        mi_db = conexion()
+        db = conexion()
+        cursor = db.cursor()
         sql = """UPDATE estudiantes
                 SET est_estado = 'retirado'
                 WHERE documento = %s"""
-        var_conexion.execute(sql, (documento,))
-        mi_db.commit()
+        cursor.execute(sql, (documento,))
+        db.commit()
         return "ok"
 
 
