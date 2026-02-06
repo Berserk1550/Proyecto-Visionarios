@@ -70,8 +70,8 @@ class Usuario:
 
 
     def cambiarPassword(self, doc_pronal, nuevo_password_hash):
-        cursor = conexion()
         db = conexion()
+        cursor = db.cursor()
 
         sql = "UPDATE usuarios SET user_password_hash=%s WHERE doc_pronal=%s"
         cursor.execute(sql, (nuevo_password_hash, doc_pronal))
@@ -80,8 +80,8 @@ class Usuario:
 
 
     def desactivarUsuario(self, doc_pronal):
-        cursor = conexion()
         db = conexion()
+        cursor = db.cursor()
 
         sql = "UPDATE usuarios SET prof_estado='inactivo' WHERE doc_pronal=%s"
         cursor.execute(sql, (doc_pronal,))

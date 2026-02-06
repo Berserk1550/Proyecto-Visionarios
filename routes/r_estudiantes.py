@@ -9,8 +9,10 @@ from models.m_estudiantes import mi_estudiante
 @programa.route("/admin/consultar_estudiante")
 def consultarEstudiantes():
 
+    rol = session.get("rol")
+    
     respuesta = mi_estudiante.consultarEstudiante()
-    return render_template("listar_estudiantes.html", estudiantes=respuesta)
+    return render_template("listar_estudiantes.html", estudiantes=respuesta, rol = rol)
 
 
 # ================================
@@ -23,10 +25,10 @@ def crearEstudiante():
 
     if request.method == 'POST':
         documento = request.form['documento_estud']
-        nombres = request.form['nombres_estud']
-        apellidos = request.form['apellidos_estud']
+        nombres = request.form['nombre_estud']
+        apellidos = request.form['apellido_estud']
         fecha_nacimiento = request.form['fecha_nacimiento_estud']
-        grado = request.form['grado']
+        grado = request.form['grado_estud']
         nombre_acudiente = request.form['nombre_acudiente']
         apellido_acudiente = request.form['apellido_acudiente']
         telefono_acudiente = request.form['telefono_acudiente']
@@ -49,37 +51,38 @@ def crearEstudiante():
 # ================================
 # MOSTRAR FORMULARIO PARA EDITAR
 # ================================
-@programa.route("/admin/modificar_estudiante/<documento>", methods=["GET"])
+@programa.route("/admin/modificar_estudiante/<documento>", methods=["GET", "POST"])
 def modificarEstudiante(documento):
+
     if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
         return redirect("/")
 
-    estudiante = mi_estudiante.consultarEstudiantePorDocumento(documento)
-    return render_template("modificar_estudiante.html", estudiante=estudiante, documento=documento)
+    # 🔹 GET → cargar datos
+    if request.method == "GET":
+        estudiante = mi_estudiante.consultarEstudiantePorDocumento(documento)
+        return render_template(
+            "modificar_estudiante.html",
+            estudiante=estudiante,
+            documento=documento
+        )
 
+    # 🔹 POST → guardar cambios
+    if request.method == "POST":
+        nombres = request.form['nombre_estud']
+        apellidos = request.form['apellido_estud']
+        fecha_nacimiento = request.form['fecha_nacimiento_estud']
+        grado = request.form['grado_estud']
+        nombre_acudiente = request.form['nombre_acudiente']
+        apellido_acudiente = request.form['apellido_acudiente']
+        telefono_acudiente = request.form['telefono_acudiente']
 
-# ================================
-# GUARDAR CAMBIOS DEL ESTUDIANTE
-# ================================
-@programa.route("/admin/actualizar_estudiante/<documento>", methods=["POST"])
-def actualizarEstudiante(documento):
-    if not session.get("login") or session.get("rol") not in ("administrador", "directivo"):
-        return redirect("/")
+        mi_estudiante.actualizarEstudiante(
+            documento, nombres, apellidos, fecha_nacimiento,
+            grado, nombre_acudiente, apellido_acudiente, telefono_acudiente
+        )
 
-    nombres = request.form['nombres']
-    apellidos = request.form['apellidos']
-    fecha_nacimiento = request.form['fecha_nacimiento']
-    grado = request.form['grado']
-    nombre_acudiente = request.form['nombre_acudiente']
-    apellido_acudiente = request.form['apellido_acudiente']
-    telefono_acudiente = request.form['telefono_acudiente']
+        return redirect("/admin/consultar_estudiante")
 
-    mi_estudiante.actualizarEstudiante(
-        documento, nombres, apellidos, fecha_nacimiento,
-        grado, nombre_acudiente, apellido_acudiente, telefono_acudiente
-    )
-
-    return redirect("/admin/consultar_estudiante")
 
 
 # ================================
