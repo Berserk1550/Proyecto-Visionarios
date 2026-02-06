@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../static/detalle_caso.css">
+  <script src="../static/js/funciones.js"></script>
   <title>Detalle del Caso</title>
 </head>
 <body>
@@ -69,24 +70,27 @@
 
       {% if session['rol'] == 'administrador' and caso.caso_estado == 'abierto' %}
       <form action="{{ url_for('r_cerrar_caso', num_caso=caso.num_caso) }}" method="POST">
-        <button type="submit">Cerrar caso</button>
+        <button type="submit" class="cerrar_caso">Cerrar caso</button>
       </form>
       {% endif %}
     </div>
 
-    <!-- Mensajes flash -->
-    {% with mensajes = get_flashed_messages(with_categories=true) %}
-      {% if mensajes %}
-      <div class="caja">
-        <ul>
-          {% for categoria, mensaje in mensajes %}
-          <li style="color: green;">{{ mensaje }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endif %}
-    {% endwith %}
+    <div id="ventana_flotante">
 
+        <div id="cont_ventana">
+            <p>¿Deseas cerrar el caso?</p>
+            <div id="opciones">
+                <div id="boton_cancelar">
+                    <label for="">Cancelar</label>
+                </div>
+                <div id="boton_cerrar">
+                    <label for="">Cerrar</label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+   
   </div>
 </body>
 </html>

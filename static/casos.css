@@ -67,10 +67,6 @@ button {
     font-size: 15px;
 }
 
-/* Hover */
-button:hover {
-    background: #1E90FF;
-}
 
 /* Media query para tablet */
 @media screen and (min-width: 650px) {

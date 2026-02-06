@@ -34,6 +34,10 @@ body {
   color: #333;
 }
 
+#padre_ppal #cerrar_sesion {
+  position: absolute;
+}
+
 /* Caja que contiene los enlaces */
 .caja {
   background: #f8f9fa;
