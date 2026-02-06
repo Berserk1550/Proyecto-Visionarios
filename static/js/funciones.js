@@ -14,10 +14,57 @@ function ventana_cerrar() {
             }
         })
     })
-    
+
 }
 
+<<<<<<< HEAD
 /**AQUI DESACTIVAMOS EL CAMPO FECHA SI EL COMPROMISO SE ENCUENTRA VACIO */
+=======
+function buscadorDeArticulos() {
+    document.addEventListener("keyup", e => {
+        if (e.target.matches("#barra_busqueda")) {
+
+            const filas = document.querySelectorAll("#informacion");
+            let coincidencias = 0;
+
+            filas.forEach(fila => {
+                const texto = fila.textContent.toLowerCase();
+                const busqueda = e.target.value.toLowerCase();
+
+                if (texto.includes(busqueda)) {
+                    fila.style.display = "";
+                    coincidencias++;
+                } else {
+                    fila.style.display = "none";
+                }
+            });
+
+            let mensaje = document.getElementById("mensaje_no_encontrado");
+
+            if (!mensaje) {
+
+                e.target.parentNode.appendChild(mensaje);
+            }
+
+            if (coincidencias === 0) {
+                mensaje.style.display = "block";
+            } else {
+                mensaje.style.display = "none";
+            }
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    ventana_cerrar();
+
+    if (document.getElementById("barra_busqueda")) {
+        buscadorDeArticulos();
+    }
+});
+
+/**AQUI DESACTIVAMOS EL CAMPO FECHA SI EL COMPROMISO SE ENCUENTRA VACIO 
+>>>>>>> 975f9d27a407415715d7cbfa892b2224831ea2f9
 
 document.addEventListener("DOMContentLoaded", function() {
     const compromisoInput = document.querySelector("input[name='compromiso']");
@@ -36,3 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
     toggleFecha(); // inicializar estado
 });
 
+<<<<<<< HEAD
+=======
+*/
+>>>>>>> 975f9d27a407415715d7cbfa892b2224831ea2f9
