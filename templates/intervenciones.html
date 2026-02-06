@@ -39,10 +39,30 @@
         <label>Compromiso:</label>
         <input type="text" name="compromiso"><br>
 
+        <label>Fecha límite del compromiso:</label>
+        <input type="date" name="fecha_compromiso"><br>
+
+
         <!-- Botones -->
         <button type="submit">Guardar intervención</button>
         <a href="{{ url_for('ver_caso', num_caso=caso.num_caso) }}"><button type="button">Regresar</button></a>
         <button type="reset">Limpiar</button>
     </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div id="flash_messages">
+            {% for category, message in messages %}
+                <script>
+                Swal.fire({
+                    icon: '{{ category }}' === 'success' ? 'success' : 'error',
+                    title: '{{ message }}',
+                    confirmButtonText: 'Aceptar'
+                });
+                </script>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
 </body>
 </html>
