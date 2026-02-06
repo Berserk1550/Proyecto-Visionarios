@@ -61,19 +61,18 @@
 
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            <div id="flash_messages">
             {% for category, message in messages %}
                 <script>
                 Swal.fire({
-                    icon: "{{ category }}" === "success" ? "success" : "error",
+                    icon: "{{ 'success' if category == 'success' else 'error' }}",
                     title: "{{ message }}",
                     confirmButtonText: "Aceptar",
-                    confirmButtonColor: "{{ '#4DA6FF' if category == 'success' }}"
+                    confirmButtonColor: "{{ '#4DA6FF' if category == 'success' else '#d33' }}"
                 });
                 </script>
             {% endfor %}
-            </div>
         {% endif %}
     {% endwith %}
+
 </body>
 </html>

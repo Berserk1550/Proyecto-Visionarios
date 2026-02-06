@@ -42,5 +42,24 @@
 
     </main>
 
+        <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <script>
+        Swal.fire({
+            icon: '{{ "error" if category=="error" else "success" }}',
+            title: '{{ message }}',
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '{{ "#d33" if category=="error" else "#4DA6FF" }}'
+        });
+        </script>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
 </body>
 </html>
