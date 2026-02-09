@@ -42,28 +42,31 @@
             <label>Fecha límite del compromiso:</label>
             <input type="date" name="fecha_compromiso"><br>
 
-
             <!-- Botones -->
             <button type="submit">Guardar intervención</button>
             <button type="reset">Limpiar</button>
         </form>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div id="flash_messages">
-            {% for category, message in messages %}
-                <script>
-                Swal.fire({
-                    icon: "{{ category }}" === "success" ? "success" : "error",
-                    title: "{{ message }}",
-                    confirmButtonText: "Aceptar",
-                    confirmButtonColor: "{{ '#4DA6FF' if category == 'success' }}"
-                });
-                </script>
-            {% endfor %}
-            </div>
-        {% endif %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <script>
+            Swal.fire({
+            icon: "{{ category }}",
+            title: "{{ message }}",
+            confirmButtonText: "Aceptar",
+            confirmButtonColor: "{{ '#4DA6FF' if category == 'success' else '#d33' }}"
+            });
+        </script>
+        {% endfor %}
+    {% endif %}
     {% endwith %}
+
+    <script src="{{ url_for('static', filename='js/limitador.js') }}"></script>
 
 </body>
 </html>
